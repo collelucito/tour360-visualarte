@@ -1,0 +1,172 @@
+{
+  "nome": "Tour Museo Virtuale - Sculture Classiche",
+  "descrizione": "Tour virtuale completo con audio, video, immagini e modelli 3D di sculture classiche",
+  "punti": [
+    {
+      "foto": "IMG_001.jpg",
+      "foto_numero": 1,
+      "nome": "Ingresso Museo",
+      "descrizione": "Benvenuto al Museo delle Sculture Classiche"
+    },
+    {
+      "foto": "IMG_002.jpg",
+      "foto_numero": 2,
+      "nome": "Sala Greca",
+      "descrizione": "Collezione di sculture greche antiche"
+    },
+    {
+      "foto": "IMG_003.jpg",
+      "foto_numero": 3,
+      "nome": "Sala Romana",
+      "descrizione": "Sculture dell'epoca romana"
+    }
+  ],
+  "hotspots": {
+    "1": [
+      {
+        "tipo": "incrocio",
+        "position": { "x": 450, "y": 50, "z": -200 },
+        "targetFoto": 2,
+        "content": null
+      },
+      {
+        "tipo": "chiedi",
+        "position": { "x": 480, "y": 120, "z": -50 },
+        "content": {
+          "type": "audio",
+          "src": "../media/audio/museum-aquarium-classical.mp3",
+          "title": "🎵 Aquarium di Saint-Saëns",
+          "description": "Musica classica del Carnevale degli Animali. Atmosfera misteriosa ed elegante per accompagnare la visita al museo.",
+          "autoplay": false
+        }
+      },
+      {
+        "tipo": "more",
+        "position": { "x": 456, "y": 170, "z": 108 },
+        "content": {
+          "type": "text",
+          "title": "🏛️ Storia del Museo",
+          "html": "<h2>Benvenuti al Museo delle Sculture Classiche</h2><p><strong>Fondato nel 1850</strong>, il nostro museo ospita una delle più importanti collezioni di arte greca e romana al mondo.</p><h3>📜 Le Collezioni</h3><ul><li><strong>Sala Greca:</strong> Oltre 200 sculture dal periodo arcaico all'ellenistico (700-31 a.C.)</li><li><strong>Sala Romana:</strong> Copie romane di originali greci e opere originali imperiali</li><li><strong>Sala Rinascimentale:</strong> Opere ispirate all'arte classica del XV-XVI secolo</li></ul><h3>🕐 Orari di Visita</h3><p>Lunedì - Venerdì: <strong>9:00 - 18:00</strong><br>Sabato - Domenica: <strong>10:00 - 20:00</strong></p><p><em>💡 L'ingresso è gratuito ogni prima domenica del mese.</em></p><h3>🎫 Tariffe</h3><ul><li>Intero: €12</li><li>Ridotto: €8 (studenti, over 65)</li><li>Gratuito: under 18, guide turistiche</li></ul>"
+        }
+      }
+    ],
+    "2": [
+      {
+        "tipo": "incrocio",
+        "position": { "x": 470, "y": -40, "z": -150 },
+        "targetFoto": 3,
+        "content": null
+      },
+      {
+        "tipo": "incrocio",
+        "position": { "x": 490, "y": 30, "z": 170 },
+        "targetFoto": 1,
+        "content": null
+      },
+      {
+        "tipo": "chiedi",
+        "position": { "x": 486, "y": 81, "z": 78 },
+        "content": {
+          "type": "audio",
+          "src": "../media/audio/museum-gymnopedie-ambient-piano.mp3",
+          "title": "🎹 Gymnopedie - Erik Satie",
+          "description": "Composizione del 1888 di Erik Satie. Atmosfera sognante e rilassante perfetta per contemplare le sculture greche. Piano e batteria in stile valzer.",
+          "autoplay": false
+        }
+      },
+      {
+        "tipo": "more",
+        "position": { "x": 440, "y": 200, "z": -110 },
+        "content": {
+          "type": "sketchfab",
+          "modelId": "53082b5d6cef4c34a9701a2a24f58075",
+          "title": "🗿 Venere di Milo (Afrodite di Milo)",
+          "description": "<h3>La Venere di Milo</h3><p>Scultura greca ellenistica in marmo di Paro, datata <strong>130-100 a.C.</strong></p><p>🏛️ <strong>Museo:</strong> Louvre, Parigi<br>📏 <strong>Altezza:</strong> 2,02 metri<br>🎨 <strong>Stile:</strong> Ellenistico</p><p>Rappresenta Afrodite, dea greca dell'amore e della bellezza. Le braccia mancanti sono andate perdute, ma aggiungono mistero alla statua.</p><p>💡 <strong>Usa il mouse</strong> per ruotare, zoomare ed esplorare ogni dettaglio!</p>"
+        }
+      },
+      {
+        "tipo": "more",
+        "position": { "x": 420, "y": 140, "z": 150 },
+        "content": {
+          "type": "text",
+          "title": "🏺 L'Arte Scultorea Greca",
+          "html": "<h2>La Scultura nell'Antica Grecia</h2><p>La scultura greca è considerata il <strong>vertice dell'arte classica</strong>. Gli scultori greci raggiunsero una maestria senza precedenti nella rappresentazione del corpo umano.</p><h3>📅 Periodi Principali</h3><p><strong>🏛️ Periodo Arcaico (700-480 a.C.)</strong><br>Caratterizzato da figure rigide con frontalità pronunciata e il tipico 'sorriso arcaico'. Kouroi (giovani uomini) e Korai (giovani donne) sono le tipologie più comuni.</p><p><strong>⚡ Periodo Classico (480-323 a.C.)</strong><br>Apice della scultura greca con maestri come <em>Fidia</em>, <em>Policleto</em> e <em>Prassitele</em>. Naturalismo perfetto e proporzioni ideali del corpo umano (Canone di Policleto).</p><p><strong>🎭 Periodo Ellenistico (323-31 a.C.)</strong><br>Maggiore drammaticità ed espressione emotiva. Opere dinamiche come il <em>Laocoonte</em> e la <em>Nike di Samotracia</em>. Rappresentazione di emozioni intense.</p><h3>🪨 Materiali Utilizzati</h3><ul><li><strong>Marmo</strong> di Paro e Pentelico (il più pregiato)</li><li><strong>Bronzo</strong> per statue di grandi dimensioni (molte perdute)</li><li><strong>Terracotta</strong> per opere votive minori</li><li><strong>Crisoelefantino</strong> (oro e avorio) per statue di culto</li></ul><h3>🎨 Tecniche</h3><p>Contrariamente alla credenza popolare, le sculture greche erano <strong>policrome</strong> (dipinte a colori vivaci). Il tempo ha rimosso la pigmentazione lasciando il marmo bianco che vediamo oggi.</p>"
+        }
+      }
+    ],
+    "3": [
+      {
+        "tipo": "incrocio",
+        "position": { "x": 464, "y": 54, "z": -173 },
+        "targetFoto": 1,
+        "content": null
+      },
+      {
+        "tipo": "incrocio",
+        "position": { "x": 485, "y": -25, "z": 160 },
+        "targetFoto": 2,
+        "content": null
+      },
+      {
+        "tipo": "chiedi",
+        "position": { "x": 475, "y": 120, "z": -80 },
+        "content": {
+          "type": "audio",
+          "src": "../media/audio/museum-canon-classical.mp3",
+          "title": "🎻 Canon in Re Maggiore - Pachelbel",
+          "description": "Il famoso Canon di Johann Pachelbel del 1680 circa. Composizione barocca con tre violini e arpa. Luminoso, calmo ed elegante, perfetto per la contemplazione dell'arte romana.",
+          "autoplay": false
+        }
+      },
+      {
+        "tipo": "more",
+        "position": { "x": 430, "y": -50, "z": -140 },
+        "content": {
+          "type": "sketchfab",
+          "modelId": "fe5c0cffdc2a4f3985872212c692af0c",
+          "title": "☀️ Apollo Belvedere",
+          "description": "<h3>Apollo Belvedere</h3><p>Copia romana in marmo di un <strong>originale greco in bronzo</strong> attribuito allo scultore Leocares, datato <strong>330 a.C.</strong> circa.</p><p>🏛️ <strong>Museo:</strong> Musei Vaticani, Roma<br>📏 <strong>Altezza:</strong> 2,24 metri<br>🎨 <strong>Periodo:</strong> Copia romana imperiale (II sec. d.C.)</p><p><strong>Apollo</strong>, dio greco della luce, musica, poesia e profezia, è rappresentato nell'atto di scagliare una freccia. Considerata una delle sculture più ammirate del mondo antico.</p><p>🎯 Durante il Rinascimento era ritenuta l'ideale supremo di bellezza maschile.</p><p>💡 <strong>Interagisci</strong> con il modello 3D per ammirare ogni dettaglio!</p>"
+        }
+      },
+      {
+        "tipo": "more",
+        "position": { "x": 445, "y": 180, "z": 120 },
+        "content": {
+          "type": "sketchfab",
+          "modelId": "d29af50360624e5e9b1855666475380d",
+          "title": "🎨 Testa del David di Michelangelo",
+          "description": "<h3>Il David di Michelangelo</h3><p>Capolavoro del Rinascimento italiano creato da <strong>Michelangelo Buonarroti</strong> tra il <strong>1501-1504</strong>.</p><p>🏛️ <strong>Museo:</strong> Galleria dell'Accademia, Firenze<br>📏 <strong>Altezza totale:</strong> 5,17 metri<br>🪨 <strong>Materiale:</strong> Marmo di Carrara (blocco unico)<br>🎨 <strong>Periodo:</strong> Alto Rinascimento</p><p>Rappresenta l'eroe biblico <strong>David</strong> prima della battaglia con Golia. Simbolo della Repubblica Fiorentina e della forza nella difesa dei diritti civili.</p><p><strong>Innovazioni:</strong></p><ul><li>Proporzioni non classiche (testa e mani sovradimensionate)</li><li>Tensione muscolare e concentrazione psicologica</li><li>Rottura della tradizione medievale del David post-vittoria</li></ul><p>🎯 Considerata una delle sculture più perfette mai realizzate.</p>"
+        }
+      },
+      {
+        "tipo": "more",
+        "position": { "x": 460, "y": -70, "z": 90 },
+        "content": {
+          "type": "mixed",
+          "title": "🏛️ Nike di Samotracia - Approfondimento Completo",
+          "items": [
+            {
+              "type": "text",
+              "html": "<h2>⚔️ La Vittoria Alata di Samotracia</h2><p>La <strong>Nike di Samotracia</strong> è una delle sculture più celebri dell'arte ellenistica, datata al <strong>II secolo a.C.</strong> (circa 190 a.C.).</p><p><strong>Nike</strong> (Νίκη) era la dea greca della vittoria, figlia del titano Pallante e della ninfa oceanina Stige.</p>"
+            },
+            {
+              "type": "text",
+              "html": "<h3>🔍 Storia e Scoperta</h3><p>📅 <strong>Scoperta:</strong> 1863 sull'isola greca di Samotracia da Charles Champoiseau<br>🏛️ <strong>Contesto originale:</strong> Posta sulla prua di una nave in pietra come ex-voto<br>🎯 <strong>Commemorava:</strong> Una vittoria navale, probabilmente nella battaglia di Side (190 a.C.)</p><p>La statua era collocata in un santuario dei Grandi Dei (Cabiri) sull'isola, in posizione dominante per essere vista dal mare.</p>"
+            },
+            {
+              "type": "sketchfab",
+              "modelId": "4edd6459f2834e7ab0b395e71cee2513",
+              "title": "Esplora il Modello 3D",
+              "description": "Modello 3D interattivo della Nike di Samotracia. Ruota, ingrandisci ed esplora ogni piega del panneggio!"
+            },
+            {
+              "type": "text",
+              "html": "<h3>🎨 Caratteristiche Artistiche</h3><ul><li>📏 <strong>Altezza:</strong> 2,75 metri (senza la base navale)</li><li>🪨 <strong>Materiale:</strong> Marmo di Paro (corpo), Marmo di Lartos (base)</li><li>🎭 <strong>Stile:</strong> Ellenistico con forte senso di movimento e dinamismo</li><li>🏛️ <strong>Conservazione:</strong> Museo del Louvre, Parigi (dal 1884)</li></ul><p><strong>⚠️ Particolarità:</strong> La testa e le braccia della statua non sono mai state ritrovate, aggiungendo fascino e mistero all'opera.</p><h3>💨 Il Panneggio \"Bagnato\"</h3><p>Tecnica scultorea ellenistica che mostra il tessuto aderente al corpo come se fosse bagnato dal vento marino. Crea un effetto di <strong>trasparenza</strong> che rivela le forme del corpo sottostante.</p><h3>🌟 Impatto Culturale</h3><p>La Nike ha ispirato innumerevoli artisti e viene considerata uno dei capolavori assoluti della scultura mondiale. Nel 1999 il Louvre l'ha posta in cima alla scala Daru, creando una delle scenografie museali più iconiche.</p>"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "dataCreazione": "2025-10-01T10:00:00.000Z"
+}

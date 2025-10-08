@@ -1,0 +1,538 @@
+﻿// ========================================
+// MAIN APP - CON VISUAL HOTSPOT EDITOR INTEGRATO
+// ========================================
+
+import { PanoramaEngine } from './engine.js';
+import { CameraControls } from './controls.js';
+import { HotspotManager } from './hotspots.js';
+import { UIManager } from './ui.js';
+import { PreviewMode } from './preview.js';
+import { VisualHotspotEditor } from './visual-hotspot-editor.js';
+
+class App {
+ constructor() {
+ this.engine = null;
+ this.controls = null;
+ this.hotspotManager = null;
+ this.uiManager = null;
+ this.previewMode = null;
+ this.visualEditor = null;
+ 
+ console.log('ðŸŽ¨ VisualArte3D - Three.js Editor with Visual Hotspot Editor');
+ console.log('ðŸ“¦ Version: 2.0 - Full Visual Control');
+ }
+ 
+ init() {
+ this.uiManager = new UIManager();
+ this.uiManager.init();
+ 
+ this.engine = new PanoramaEngine('canvas-container');
+ 
+ this.controls = new CameraControls(
+ this.engine.getCamera(),
+ this.engine.getRenderer().domElement
+ );
+ 
+ this.hotspotManager = new HotspotManager(
+ this.engine.getScene(),
+ this.engine.getCamera(),
+ this.engine.getRenderer().domElement
+ );
+ 
+ this.previewMode = new PreviewMode();
+ 
+ // ðŸ†• VISUAL HOTSPOT EDITOR
+ this.visualEditor = new VisualHotspotEditor( this.engine.getScene(), this.engine.getCamera(), this.engine.getRenderer(), this.controls );
+ 
+ // Callback per salvare modifiche hotspot
+ this.visualEditor.onApply = (hotspotData) => {
+ const hotspots = this.uiManager.hotspotTemporanei[this.uiManager.currentFoto] || [];
+ const index = hotspots.findIndex(h => h.timestamp === hotspotData.timestamp);
+ if (index >= 0) {
+ hotspots[index].position = hotspotData.position; if (hotspotData.scale) { hotspots[index].scale = hotspotData.scale; }
+ console.log('ðŸ’¾ Hotspot aggiornato in memoria:', hotspotData);
+ this.uiManager.aggiornaListaHotspot();
+
+        // 🆕 AUTO-SAVE callback
+        this.visualEditor.onAutoSave = (hotspotData) => {
+            const hotspots = this.uiManager.hotspotTemporanei[this.uiManager.currentFoto] || [];
+            const index = hotspots.findIndex(h => h.timestamp === hotspotData.timestamp);
+            if (index >= 0) {
+                hotspots[index].position = hotspotData.position;
+                if (hotspotData.scale) hotspots[index].scale = hotspotData.scale;
+            }
+        };
+ }
+ };
+ `n`n        // 🆕 AUTO-SAVE callback`n        this.visualEditor.onAutoSave = (hotspotData) => {`n            const hotspots = this.uiManager.hotspotTemporanei[this.uiManager.currentFoto] || [];`n            const index = hotspots.findIndex(h => h.timestamp === hotspotData.timestamp);`n            if (index >= 0) {`n                hotspots[index].position = hotspotData.position;`n                if (hotspotData.scale) hotspots[index].scale = hotspotData.scale;`n            }`n        };`n`n this.setupEvents();
+ this.loadCurrentFoto();
+ this.updateLoop();
+ 
+ console.log('âœ… App initialized with Visual Editor!');
+ }
+ 
+ setupEvents() {
+ document.getElementById('fotoSelect').addEventListener('change', () => {
+ this.uiManager.currentFoto = parseInt(document.getElementById('fotoSelect').value);
+ this.loadCurrentFoto();
+ });
+ 
+ document.querySelectorAll('.type-btn').forEach(btn => {
+ btn.addEventListener('click', (e) => {
+ const tipo = e.target.id.replace('btn-', '');
+ this.uiManager.tipoCorrente = tipo;
+ document.querySelectorAll('.type-btn').forEach(b => b.classList.remove('active'));
+ e.target.classList.add('active');
+ });
+ });
+ 
+ // ðŸ†• CLICK HANDLER CON VISUAL EDITOR
+ this.controls.onClick((event) => {
+ const raycasterCheck = new THREE.Raycaster(); const mouseCheck = new THREE.Vector2(); const rectCheck = this.engine.getRenderer().domElement.getBoundingClientRect(); mouseCheck.x = ((event.clientX - rectCheck.left) / rectCheck.width) * 2 - 1; mouseCheck.y = -((event.clientY - rectCheck.top) / rectCheck.height) * 2 + 1; raycasterCheck.setFromCamera(mouseCheck, this.engine.getCamera()); const hotspotsInScene = this.engine.getScene().children.filter(c => c.userData && c.userData.isHotspot); const intersectsCheck = raycasterCheck.intersectObjects(hotspotsInScene); const hotspot = intersectsCheck.length > 0 ? intersectsCheck[0].object : null;
+ 
+ // SHIFT + CLICK = Modifica hotspot con Visual Editor
+ if (hotspot && event.shiftKey && hotspot.userData.hotspotData) {
+ console.log('ðŸŽ¯ Apertura Visual Editor per hotspot');
+ this.visualEditor.selectHotspot(hotspot, hotspot.userData.hotspotData);
+ return;
+ }
+ 
+ // Click normale su hotspot navigazione
+ if (hotspot && hotspot.userData.type === 'incrocio') {
+ const targetFoto = hotspot.userData.data.targetFoto;
+ if (targetFoto) {
+ this.navigateToFoto(targetFoto);
+ }
+ return;
+ }
+ 
+ // Click su panorama = Crea nuovo hotspot
+ const raycaster = new THREE.Raycaster();
+ const mouse = new THREE.Vector2();
+ const rect = this.engine.getRenderer().domElement.getBoundingClientRect();
+ mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+ mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
+ 
+ raycaster.setFromCamera(mouse, this.engine.getCamera());
+ const sphere = this.engine.getScene().children.find(obj => obj.geometry && obj.geometry.type === 'SphereGeometry');
+ 
+ if (sphere) {
+ const intersects = raycaster.intersectObject(sphere);
+ if (intersects.length > 0) {
+ this.addHotspot(intersects[0].point);
+ }
+ }
+ });
+ 
+ document.querySelector('.new-route-section button').addEventListener('click', () => {
+ const nome = document.getElementById('nomePercorso').value;
+ const result = this.uiManager.creaPercorso(nome);
+ if (result.success) {
+ document.getElementById('nomePercorso').value = '';
+ alert(`âœ… Percorso "${nome}" creato!`);
+ } else {
+ alert(`âŒ ${result.error}`);
+ }
+ });
+ 
+ document.getElementById('addToRouteBtn').addEventListener('click', () => {
+ const nome = document.getElementById('nomePunto').value;
+ const desc = document.getElementById('descrizionePunto').value;
+ const result = this.uiManager.aggiungiPunto(nome, desc);
+ 
+ if (result.success) {
+ document.getElementById('nomePunto').value = '';
+ document.getElementById('descrizionePunto').value = '';
+ 
+ const btn = document.getElementById('addToRouteBtn');
+ const orig = btn.textContent;
+ btn.style.background = '#4CAF50';
+ btn.textContent = 'âœ… AGGIUNTO!';
+ setTimeout(() => {
+ btn.style.background = '';
+ btn.textContent = orig;
+ }, 1500);
+ } else {
+ alert(`âŒ ${result.error}`);
+ }
+ });
+ 
+ document.getElementById('listaPercorsi').addEventListener('click', (e) => {
+ const btn = e.target.closest('button[data-action]');
+ if (!btn) return;
+ 
+ const action = btn.dataset.action;
+ const nome = btn.dataset.name;
+ 
+ switch(action) {
+ case 'select':
+ this.uiManager.percorsoCorrente = nome;
+ 
+ // Carica hotspot dal percorso
+ const percorsoSel = this.uiManager.percorsiAttivi[nome];
+ if (percorsoSel && percorsoSel.hotspots) {
+ console.log('ðŸ”„ Caricamento hotspot da percorso:', nome);
+ this.uiManager.hotspotTemporanei = JSON.parse(JSON.stringify(percorsoSel.hotspots));
+ console.log('âœ… Caricati hotspot per', Object.keys(this.uiManager.hotspotTemporanei).length, 'foto');
+ }
+ 
+ this.uiManager.aggiornaListaPercorsi();
+ this.loadCurrentFoto();
+ break;
+ 
+ case 'preview':
+ const percorso = this.uiManager.percorsiAttivi[nome];
+ if (percorso && percorso.punti.length > 0) {
+ this.previewMode.start(percorso);
+ } else {
+ alert('âš ï¸ Percorso vuoto!');
+ }
+ break;
+ 
+ case 'save':
+ const result = this.uiManager.esportaPercorso(nome);
+ if (result.success) {
+ alert('ðŸ’¾ Percorso esportato!');
+ } else {
+ alert(`âŒ ${result.error}`);
+ }
+ break;
+ 
+ case 'delete':
+ if (confirm(`Eliminare "${nome}"?`)) {
+ this.uiManager.eliminaPercorso(nome);
+ alert('ðŸ—‘ï¸ Eliminato!');
+ }
+ break;
+ }
+ });
+ 
+ // ðŸ†• CLICK su hotspot nella lista per modificare
+ document.getElementById('hotspotList').addEventListener('click', (e) => {
+ if (e.target.classList.contains('delete-btn')) {
+ const timestamp = parseInt(e.target.dataset.timestamp);
+ this.uiManager.rimuoviHotspot(timestamp);
+ this.reloadHotspots();
+ } else if (e.target.classList.contains('edit-btn')) {
+ // Nuovo bottone Edit nella lista
+ const timestamp = parseInt(e.target.dataset.timestamp);
+ const hotspots = this.uiManager.getHotspotsCorrente();
+ const hotspotData = hotspots.find(h => h.timestamp === timestamp);
+ 
+ if (hotspotData) {
+ // Trova mesh hotspot nella scena
+ const hotspotMesh = this.engine.getScene().children.find(child => 
+ child.userData && child.userData.hotspotData && 
+ child.userData.hotspotData.timestamp === timestamp
+ );
+ 
+ if (hotspotMesh) {
+ this.visualEditor.selectHotspot(hotspotMesh, hotspotData);
+ }
+ }
+ }
+ });
+ 
+ document.querySelector('.reset-section button').addEventListener('click', () => {
+ if (this.uiManager.reset()) {
+ this.hotspotManager.clearAll();
+ alert('ðŸ”„ Reset completato!');
+ }
+ });
+ 
+ document.getElementById('btn-confirm-incrocio').addEventListener('click', () => {
+ this.confirmHotspot();
+ });
+ 
+ document.getElementById('btn-cancel-incrocio').addEventListener('click', () => {
+ this.cancelHotspot();
+ });
+ 
+ document.getElementById('btn-confirm-chiedi').addEventListener('click', () => {
+ this.confirmChiedi();
+ });
+ 
+ document.getElementById('btn-cancel-chiedi').addEventListener('click', () => {
+ this.cancelChiedi();
+ });
+ 
+ document.getElementById('btn-confirm-more').addEventListener('click', () => {
+ this.confirmMore();
+ });
+ 
+ document.getElementById('btn-cancel-more').addEventListener('click', () => {
+ this.cancelMore();
+ });
+ 
+ document.getElementById('btn-confirm-3d').addEventListener('click', () => {
+ this.confirm3d();
+ });
+ 
+ document.getElementById('btn-cancel-3d').addEventListener('click', () => {
+ this.cancel3d();
+ });
+ 
+ document.getElementById('saveAllBtn').addEventListener('click', () => {
+ const result = this.uiManager.salvaTutto();
+ if (result.success) {
+ alert(`ðŸ’¾ Salvati ${result.count} percorsi!`);
+ } else {
+ alert(`âŒ ${result.error}`);
+ }
+ });
+ 
+ document.getElementById('loadAllBtn').addEventListener('click', () => {
+ document.getElementById('loadAllInput').click();
+ });
+ 
+ document.getElementById('loadAllInput').addEventListener('change', async (e) => {
+ const file = e.target.files[0];
+ if (!file) return;
+ 
+ try {
+ const result = await this.uiManager.caricaTutto(file);
+ alert(`ðŸ“‚ Caricati ${result.count} percorsi!`);
+ e.target.value = '';
+ } catch (err) {
+ alert(`âŒ ${err.error}`);
+ }
+ });
+ 
+ document.getElementById('preview-close').addEventListener('click', () => {
+ this.previewMode.close();
+ });
+ }
+ 
+ loadCurrentFoto() {
+ const filename = `../IMG_${String(this.uiManager.currentFoto).padStart(3, '0')}.jpg`;
+ 
+ this.hotspotManager.clearAll();
+ 
+ this.engine.loadTexture(filename, () => {
+ this.reloadHotspots();
+ });
+ 
+ this.uiManager.aggiornaUI();
+ }
+ 
+ reloadHotspots() {
+ this.hotspotManager.clearAll();
+ const hotspots = this.uiManager.getHotspotsCorrente();
+ 
+ hotspots.forEach(h => { const position = new THREE.Vector3(h.position.x, h.position.y, h.position.z); const mesh = this.hotspotManager.createHotspot(position, h.tipo, { timestamp: h.timestamp, targetFoto: h.targetFoto, targetName: h.targetName, content: h.content }); if (h.scale && mesh) { mesh.scale.set(h.scale, h.scale, h.scale); }
+ 
+ // ðŸ†• Aggiungi riferimento hotspot data per Visual Editor
+ mesh.userData.hotspotData = h;
+ mesh.userData.isHotspot = true;
+ });
+ }
+ 
+ addHotspot(position) {
+ this.uiManager.pendingHotspot = { position: position };
+ 
+ if (this.uiManager.tipoCorrente === 'incrocio') {
+ document.getElementById('modalIncrocio').classList.add('active');
+ } else if (this.uiManager.tipoCorrente === 'chiedi') {
+ document.getElementById('chiediVideoSelect').value = '';
+ document.getElementById('chiediAudioSelect').value = '';
+ document.querySelectorAll('#chiediImagesCheckboxes input').forEach(cb => cb.checked = false);
+ document.getElementById('modalChiedi').classList.add('active');
+ } else if (this.uiManager.tipoCorrente === 'more') {
+ document.getElementById('moreTitleInput').value = '';
+ document.getElementById('moreTextInput').value = '';
+ document.getElementById('moreWikipediaInput').value = '';
+ document.getElementById('modalMore').classList.add('active');
+ } else if (this.uiManager.tipoCorrente === 'tred') {
+ document.getElementById('tredTitleInput').value = '';
+ document.getElementById('tredDescInput').value = '';
+ document.getElementById('tredSketchfabInput').value = '';
+ document.getElementById('modal3d').classList.add('active');
+ }
+ }
+ 
+ confirmHotspot() {
+ const targetFoto = parseInt(document.getElementById('targetFotoSelect').value);
+ if (!targetFoto) {
+ alert('âš ï¸ Seleziona una foto!');
+ return;
+ }
+ 
+ const position = this.uiManager.pendingHotspot.position;
+ const hotspot = this.uiManager.aggiungiHotspot(position, targetFoto);
+ 
+ const pos = new THREE.Vector3(position.x, position.y, position.z);
+ const mesh = this.hotspotManager.createHotspot(pos, 'incrocio', {
+ timestamp: hotspot.timestamp,
+ targetFoto: targetFoto,
+ targetName: hotspot.targetName
+ });
+ 
+ // Aggiungi riferimento per editing
+ mesh.userData.hotspotData = hotspot;
+ mesh.userData.isHotspot = true;
+ 
+ document.getElementById('modalIncrocio').classList.remove('active');
+ this.uiManager.pendingHotspot = null;
+ }
+ 
+ cancelHotspot() {
+ document.getElementById('modalIncrocio').classList.remove('active');
+ this.uiManager.pendingHotspot = null;
+ }
+ 
+ confirmChiedi() {
+ const video = document.getElementById('chiediVideoSelect').value;
+ const audio = document.getElementById('chiediAudioSelect').value;
+ const gallery = [];
+ document.querySelectorAll('#chiediImagesCheckboxes input:checked').forEach(cb => {
+ gallery.push(cb.value);
+ });
+ 
+ if (!video && !audio && gallery.length === 0) {
+ alert('âš ï¸ Seleziona almeno un contenuto!');
+ return;
+ }
+ 
+ const position = this.uiManager.pendingHotspot.position;
+ const hotspot = this.uiManager.aggiungiHotspot(position);
+ 
+ hotspot.content = {
+ video: video,
+ audio: audio,
+ gallery: gallery
+ };
+ 
+ const pos = new THREE.Vector3(position.x, position.y, position.z);
+ const mesh = this.hotspotManager.createHotspot(pos, 'chiedi', {
+ timestamp: hotspot.timestamp,
+ content: hotspot.content
+ });
+ 
+ mesh.userData.hotspotData = hotspot;
+ mesh.userData.isHotspot = true;
+ 
+ document.getElementById('modalChiedi').classList.remove('active');
+ this.uiManager.pendingHotspot = null;
+ }
+ 
+ cancelChiedi() {
+ document.getElementById('modalChiedi').classList.remove('active');
+ this.uiManager.pendingHotspot = null;
+ }
+ 
+ confirmMore() {
+ const titolo = document.getElementById('moreTitleInput').value.trim();
+ const testo = document.getElementById('moreTextInput').value.trim();
+ const wikipedia = document.getElementById('moreWikipediaInput').value.trim();
+ 
+ if (!titolo && !testo) {
+ alert('âš ï¸ Inserisci almeno un titolo o del testo!');
+ return;
+ }
+ 
+ const position = this.uiManager.pendingHotspot.position;
+ const hotspot = this.uiManager.aggiungiHotspot(position);
+ 
+ hotspot.content = {
+ titolo: titolo,
+ testo: testo,
+ wikipedia: wikipedia
+ };
+ 
+ const pos = new THREE.Vector3(position.x, position.y, position.z);
+ const mesh = this.hotspotManager.createHotspot(pos, 'more', {
+ timestamp: hotspot.timestamp,
+ content: hotspot.content
+ });
+ 
+ mesh.userData.hotspotData = hotspot;
+ mesh.userData.isHotspot = true;
+ 
+ document.getElementById('modalMore').classList.remove('active');
+ this.uiManager.pendingHotspot = null;
+ }
+ 
+ cancelMore() {
+ document.getElementById('modalMore').classList.remove('active');
+ this.uiManager.pendingHotspot = null;
+ }
+ 
+ confirm3d() {
+ const titolo = document.getElementById('tredTitleInput').value.trim();
+ const testo = document.getElementById('tredDescInput').value.trim();
+ const model3d = document.getElementById('tredSketchfabInput').value.trim();
+ 
+ if (!titolo && !model3d) {
+ alert('âš ï¸ Inserisci almeno un titolo o un URL modello!');
+ return;
+ }
+ 
+ const position = this.uiManager.pendingHotspot.position;
+ const hotspot = this.uiManager.aggiungiHotspot(position);
+ 
+ let modelId = '';
+ if (model3d) {
+ const match = model3d.match(/models\/([a-zA-Z0-9]+)/);
+ if (match) {
+ modelId = match[1];
+ } else {
+ modelId = model3d;
+ }
+ }
+ 
+ hotspot.content = {
+ type: 'sketchfab',
+ title: titolo,
+ description: testo,
+ modelId: modelId,
+ url: model3d
+ };
+ 
+ const pos = new THREE.Vector3(position.x, position.y, position.z);
+ const mesh = this.hotspotManager.createHotspot(pos, 'tred', {
+ timestamp: hotspot.timestamp,
+ content: hotspot.content
+ });
+ 
+ mesh.userData.hotspotData = hotspot;
+ mesh.userData.isHotspot = true;
+ 
+ document.getElementById('modal3d').classList.remove('active');
+ this.uiManager.pendingHotspot = null;
+ 
+ console.log('âœ… Hotspot 3D creato:', hotspot.content);
+ }
+ 
+ cancel3d() {
+ document.getElementById('modal3d').classList.remove('active');
+ this.uiManager.pendingHotspot = null;
+ }
+
+ 
+ navigateToFoto(fotoNumero) {
+ document.getElementById('fotoSelect').value = fotoNumero;
+ this.uiManager.currentFoto = fotoNumero;
+ this.loadCurrentFoto();
+ }
+ 
+ updateLoop() {
+ requestAnimationFrame(() => this.updateLoop());
+ this.controls.update();
+ }
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+ const app = new App();
+ app.init();
+ window.app = app;
+});
+
+
+
+
+
+
+
+
+
+

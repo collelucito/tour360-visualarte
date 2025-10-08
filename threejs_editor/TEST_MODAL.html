@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Modal</title>
+    <style>
+        body {
+            background: #1a1a1a;
+            color: white;
+            font-family: Arial, sans-serif;
+            padding: 50px;
+        }
+        
+        .test-buttons {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 50px;
+        }
+        
+        .test-btn {
+            padding: 15px 30px;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        
+        .test-btn:hover {
+            background: #66BB6A;
+        }
+        
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.95);
+            z-index: 20000;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(10px);
+        }
+        
+        .modal-overlay.active {
+            display: flex;
+        }
+        
+        .modal-content {
+            background: linear-gradient(135deg, rgba(42,42,42,0.98), rgba(26,26,26,0.98));
+            padding: 40px;
+            border-radius: 20px;
+            border: 3px solid #4CAF50;
+            max-width: 550px;
+            width: 90%;
+            box-shadow: 0 20px 60px rgba(76, 175, 80, 0.4);
+        }
+        
+        .modal-content h3 {
+            color: #4CAF50;
+            margin-bottom: 20px;
+            font-size: 28px;
+            text-align: center;
+        }
+        
+        .modal-content label {
+            display: block;
+            color: #4CAF50;
+            margin: 15px 0 5px 0;
+            font-weight: 600;
+        }
+        
+        .modal-content input,
+        .modal-content select,
+        .modal-content textarea {
+            width: 100%;
+            padding: 12px;
+            background: rgba(26,26,26,0.95);
+            border: 2px solid #4CAF50;
+            color: white;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+        
+        .modal-content textarea {
+            height: 100px;
+            resize: vertical;
+        }
+        
+        .modal-buttons {
+            display: flex;
+            gap: 12px;
+            margin-top: 25px;
+        }
+        
+        .modal-buttons button {
+            flex: 1;
+            padding: 15px;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        
+        .btn-confirm {
+            background: linear-gradient(135deg, #4CAF50, #66BB6A);
+            color: white;
+        }
+        
+        .btn-cancel {
+            background: linear-gradient(135deg, #f44336, #e53935);
+            color: white;
+        }
+        
+        .status {
+            background: rgba(42,42,42,0.95);
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid #4CAF50;
+        }
+        
+        .status h2 {
+            color: #4CAF50;
+            margin-bottom: 15px;
+        }
+        
+        .status-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #333;
+        }
+        
+        .status-ok {
+            color: #4CAF50;
+            font-weight: bold;
+        }
+        
+        .checkbox-group {
+            border: 1px solid #666;
+            padding: 15px;
+            border-radius: 10px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+        
+        .checkbox-group label {
+            display: flex;
+            align-items: center;
+            margin: 8px 0;
+            color: white;
+            font-weight: normal;
+        }
+        
+        .checkbox-group input[type="checkbox"] {
+            width: auto;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🧪 TEST MODAL - VisualArte3D</h1>
+    
+    <div class="test-buttons">
+        <button class="test-btn" onclick="openModal('modalIncrocio')">
+            ✅ Test NAV (Incrocio)
+        </button>
+        <button class="test-btn" onclick="openModal('modalChiedi')">
+            🎬 Test MP4 (Video/Audio)
+        </button>
+        <button class="test-btn" onclick="openModal('modalMore')">
+            ℹ️ Test INFO (Testo)
+        </button>
+        <button class="test-btn" onclick="openModal('modal3d')">
+            🗿 Test 3D (Sketchfab)
+        </button>
+    </div>
+    
+    <div class="status">
+        <h2>📊 Status Sistema</h2>
+        <div class="status-item">
+            <span>HTML Modal presenti:</span>
+            <span class="status-ok">✅ 4/4</span>
+        </div>
+        <div class="status-item">
+            <span>CSS caricato:</span>
+            <span class="status-ok">✅ OK</span>
+        </div>
+        <div class="status-item">
+            <span>JavaScript funzionante:</span>
+            <span class="status-ok">✅ OK</span>
+        </div>
+    </div>
+
+    <!-- Modal INCROCIO (NAV) -->
+    <div class="modal-overlay" id="modalIncrocio">
+        <div class="modal-content">
+            <h3>🧭 Configura Navigazione</h3>
+            <p>Seleziona la destinazione per questo punto</p>
+            
+            <label>Foto Destinazione:</label>
+            <select id="targetFotoSelect">
+                <option value="">-- Seleziona --</option>
+                <option value="1">IMG_001 - Atrio</option>
+                <option value="2">IMG_002 - Sala Principale</option>
+                <option value="3">IMG_003 - Corridoio</option>
+            </select>
+            
+            <div class="modal-buttons">
+                <button class="btn-cancel" onclick="closeModal('modalIncrocio')">❌ Annulla</button>
+                <button class="btn-confirm" onclick="confirmIncrocio()">✅ Conferma</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal CHIEDI (MP4) -->
+    <div class="modal-overlay" id="modalChiedi">
+        <div class="modal-content">
+            <h3>🎬 Configura Contenuti Multimediali</h3>
+            <p>Aggiungi video, audio o immagini</p>
+            
+            <label>Video:</label>
+            <select id="chiediVideoSelect">
+                <option value="">-- Nessuno --</option>
+                <option value="video1.mp4">Video Scultura 1</option>
+                <option value="video2.mp4">Video Scultura 2</option>
+            </select>
+            
+            <label>Audio:</label>
+            <select id="chiediAudioSelect">
+                <option value="">-- Nessuno --</option>
+                <option value="audio1.mp3">Audioguida Classica</option>
+                <option value="audio2.mp3">Musica Ambiente</option>
+            </select>
+            
+            <label>Galleria Immagini:</label>
+            <div class="checkbox-group" id="chiediImagesCheckboxes">
+                <label><input type="checkbox" value="img1.jpg"> Immagine Dettaglio 1</label>
+                <label><input type="checkbox" value="img2.jpg"> Immagine Dettaglio 2</label>
+                <label><input type="checkbox" value="img3.jpg"> Immagine Storica</label>
+            </div>
+            
+            <div class="modal-buttons">
+                <button class="btn-cancel" onclick="closeModal('modalChiedi')">❌ Annulla</button>
+                <button class="btn-confirm" onclick="confirmChiedi()">✅ Salva</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal MORE (INFO) -->
+    <div class="modal-overlay" id="modalMore">
+        <div class="modal-content">
+            <h3>ℹ️ Configura Informazioni</h3>
+            <p>Aggiungi testo e link</p>
+            
+            <label>Titolo:</label>
+            <input type="text" id="moreTitleInput" placeholder="Es: Storia della Scultura">
+            
+            <label>Testo Descrittivo:</label>
+            <textarea id="moreTextInput" placeholder="Inserisci la descrizione completa..."></textarea>
+            
+            <label>Link Wikipedia (opzionale):</label>
+            <input type="text" id="moreWikipediaInput" placeholder="https://it.wikipedia.org/wiki/...">
+            
+            <div class="modal-buttons">
+                <button class="btn-cancel" onclick="closeModal('modalMore')">❌ Annulla</button>
+                <button class="btn-confirm" onclick="confirmMore()">✅ Salva</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 3D (Sketchfab) -->
+    <div class="modal-overlay" id="modal3d">
+        <div class="modal-content">
+            <h3>🗿 Configura Modello 3D</h3>
+            <p>Aggiungi modello 3D Sketchfab</p>
+            
+            <label>Titolo Modello:</label>
+            <input type="text" id="tredTitleInput" placeholder="Es: Venere di Milo">
+            
+            <label>Descrizione:</label>
+            <textarea id="tredDescInput" placeholder="Descrizione del modello 3D..."></textarea>
+            
+            <label>URL Sketchfab:</label>
+            <input type="text" id="tredSketchfabInput" placeholder="https://sketchfab.com/3d-models/...">
+            
+            <div class="modal-buttons">
+                <button class="btn-cancel" onclick="closeModal('modal3d')">❌ Annulla</button>
+                <button class="btn-confirm" onclick="confirm3d()">✅ Salva</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Funzioni per aprire/chiudere modal
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+            console.log('✅ Modal aperta:', modalId);
+        }
+        
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+            console.log('❌ Modal chiusa:', modalId);
+        }
+        
+        // Funzioni di conferma
+        function confirmIncrocio() {
+            const target = document.getElementById('targetFotoSelect').value;
+            if (!target) {
+                alert('⚠️ Seleziona una destinazione!');
+                return;
+            }
+            alert(`✅ Salvato! Destinazione: IMG_${String(target).padStart(3, '0')}`);
+            closeModal('modalIncrocio');
+        }
+        
+        function confirmChiedi() {
+            const video = document.getElementById('chiediVideoSelect').value;
+            const audio = document.getElementById('chiediAudioSelect').value;
+            const images = [];
+            document.querySelectorAll('#chiediImagesCheckboxes input:checked').forEach(cb => {
+                images.push(cb.value);
+            });
+            
+            if (!video && !audio && images.length === 0) {
+                alert('⚠️ Seleziona almeno un contenuto!');
+                return;
+            }
+            
+            alert(`✅ Salvato!\nVideo: ${video || 'nessuno'}\nAudio: ${audio || 'nessuno'}\nImmagini: ${images.length}`);
+            closeModal('modalChiedi');
+        }
+        
+        function confirmMore() {
+            const title = document.getElementById('moreTitleInput').value.trim();
+            const text = document.getElementById('moreTextInput').value.trim();
+            const wiki = document.getElementById('moreWikipediaInput').value.trim();
+            
+            if (!title && !text) {
+                alert('⚠️ Inserisci almeno un titolo o del testo!');
+                return;
+            }
+            
+            alert(`✅ Salvato!\nTitolo: ${title}\nTesto: ${text.length} caratteri\nWikipedia: ${wiki ? 'Si' : 'No'}`);
+            closeModal('modalMore');
+        }
+        
+        function confirm3d() {
+            const title = document.getElementById('tredTitleInput').value.trim();
+            const desc = document.getElementById('tredDescInput').value.trim();
+            const url = document.getElementById('tredSketchfabInput').value.trim();
+            
+            if (!title && !url) {
+                alert('⚠️ Inserisci almeno un titolo o un URL!');
+                return;
+            }
+            
+            alert(`✅ Salvato!\nTitolo: ${title}\nURL: ${url}\nDescrizione: ${desc.length} caratteri`);
+            closeModal('modal3d');
+        }
+        
+        // Chiudi modal cliccando fuori
+        document.querySelectorAll('.modal-overlay').forEach(modal => {
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.classList.remove('active');
+                    console.log('❌ Modal chiusa (click esterno)');
+                }
+            });
+        });
+        
+        // Test iniziale
+        console.log('🧪 TEST_MODAL.html caricato!');
+        console.log('✅ Modal disponibili:', ['modalIncrocio', 'modalChiedi', 'modalMore', 'modal3d']);
+    </script>
+</body>
+</html>

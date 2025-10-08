@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+ <meta charset="UTF-8">
+ <title>Test Hotspot Visualizzazione</title>
+ <style>
+ body { margin: 0; padding: 20px; font-family: Arial; background: #1a1a1a; color: white; }
+ .test-section { background: #2a2a2a; padding: 20px; margin: 10px 0; border-radius: 10px; }
+ .hotspot { display: inline-block; width: 30px; height: 30px; border-radius: 50%; margin: 5px; }
+ .incrocio { background: #4CAF50; }
+ .chiedi { background: #FF9800; }
+ .more { background: #2196F3; }
+ button { padding: 10px 20px; margin: 5px; cursor: pointer; }
+ </style>
+</head>
+<body>
+ <h1> Test Hotspot Info/More</h1>
+ 
+ <div class="test-section">
+ <h3>Colori Hotspot</h3>
+ <div class="hotspot incrocio" title="Incrocio (Verde)"></div> Incrocio (Navigazione)<br>
+ <div class="hotspot chiedi" title="Chiedi (Arancione)"></div> Chiedi (Info)<br>
+ <div class="hotspot more" title="More (Blu)"></div> More (Dettagli)<br>
+ </div>
+ 
+ <div class="test-section">
+ <h3>Test Percorso</h3>
+ <button onclick="testPercorso()"> Mostra dati percorso salvato</button>
+ <button onclick="testHotspots()"> Conta hotspot per tipo</button>
+ <pre id="output" style="background: #1a1a1a; padding: 15px; border-radius: 5px;"></pre>
+ </div>
+ 
+ <div class="test-section">
+ <h3>Istruzioni Test</h3>
+ <ol>
+ <li>Vai nell'editor: <a href="index.html" style="color: #4CAF50;">threejs_editor/index.html</a></li>
+ <li>Crea un percorso "Test Hotspot"</li>
+ <li>Aggiungi 1 hotspot Incrocio (verde)</li>
+ <li>Aggiungi 1 hotspot Chiedi (arancione)</li>
+ <li>Aggiungi 1 hotspot More (blu)</li>
+ <li>Clicca "Aggiungi al percorso"</li>
+ <li>Torna qui e clicca "Mostra dati percorso"</li>
+ </ol>
+ </div>
+ 
+ <script>
+ function testPercorso() {
+ const output = document.getElementById('output');
+ 
+ // Leggi dati da localStorage (se auto-save attivo) o mostra tutti i percorsi
+ const percorsiKey = Object.keys(localStorage).find(k => k.includes('visualarte'));
+ 
+ if (percorsiKey) {
+ const data = JSON.parse(localStorage.getItem(percorsiKey));
+ output.textContent = JSON.stringify(data, null, 2);
+ } else {
+ output.textContent = ' Nessun percorso trovato in localStorage.\n\n' +
+ 'NOTA: I percorsi sono salvati in memoria (non localStorage).\n' +
+ 'Esporta un percorso per vedere il JSON completo.';
+ }
+ }
+ 
+ function testHotspots() {
+ const output = document.getElementById('output');
+ output.textContent = `
+ COME VERIFICARE HOTSPOT:
+
+1. Nell'editor, dopo aver aggiunto hotspot:
+ - Guarda pannello destro "Hotspot (X)"
+ - Dovrebbe mostrare tutti i tipi
+
+2. In Preview Mode (Play):
+ - Apri Console Browser (F12)
+ - Cerca: " Loaded X hotspots (all types)"
+ - Dovrebbe mostrare numero totale
+
+3. Esporta percorso ( Save):
+ - Apri file JSON scaricato
+ - Cerca "hotspots": [ ... ]
+ - Verifica che ci siano tutti i tipi
+
+ESEMPIO JSON ATTESO:
+{
+ "hotspots": [
+ { "tipo": "incrocio", "position": {...}, "targetFoto": 2 },
+ { "tipo": "chiedi", "position": {...} },
+ { "tipo": "more", "position": {...} }
+ ]
+}
+ `;
+ }
+ </script>
+</body>
+</html>

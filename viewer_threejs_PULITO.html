@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>Tour Viewer - Three.js Seamless</title>
+ <style>
+ * {
+ margin: 0;
+ padding: 0;
+ box-sizing: border-box;
+ }
+
+ body {
+ font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+ overflow: hidden;
+ background: #000;
+ }
+
+ #viewer-container {
+ width: 100vw;
+ height: 100vh;
+ position: relative;
+ }
+
+ /* UI OVERLAY */
+ #ui-overlay {
+ position: fixed;
+ top: 0;
+ left: 0;
+ right: 0;
+ bottom: 0;
+ pointer-events: none;
+ z-index: 1000;
+ }
+
+ /* TITOLO PUNTO */
+ #punto-info {
+ position: absolute;
+ top: 30px;
+ left: 50%;
+ transform: translateX(-50%);
+ background: rgba(0,0,0,0.8);
+ backdrop-filter: blur(10px);
+ padding: 20px 40px;
+ border-radius: 15px;
+ pointer-events: all;
+ text-align: center;
+ max-width: 600px;
+ }
+
+ #punto-info h2 {
+ color: white;
+ font-size: 24px;
+ margin-bottom: 8px;
+ }
+
+ #punto-info p {
+ color: #ccc;
+ font-size: 14px;
+ }
+
+ /* FLOORPLAN */
+ #floorplan {
+ position: absolute;
+ bottom: 30px;
+ left: 30px;
+ width: 300px;
+ height: 200px;
+ background: rgba(0,0,0,0.8);
+ backdrop-filter: blur(10px);
+ border-radius: 15px;
+ padding: 15px;
+ pointer-events: all;
+ }
+
+ #floorplan h3 {
+ color: white;
+ font-size: 14px;
+ margin-bottom: 10px;
+ text-align: center;
+ }
+
+ #floorplan-canvas {
+ position: relative;
+ width: 100%;
+ height: calc(100% - 30px);
+ }
+
+ .floorplan-point {
+ position: absolute;
+ width: 12px;
+ height: 12px;
+ background: #4CAF50;
+ border: 2px solid white;
+ border-radius: 50%;
+ transform: translate(-50%, -50%);
+ cursor: pointer;
+ transition: all 0.3s;
+ z-index: 2;
+ }
+
+ .floorplan-point:hover {
+ transform: translate(-50%, -50%) scale(1.3);
+ box-shadow: 0 0 10px rgba(76, 175, 80, 0.8);
+ }
+
+ .floorplan-point.active {
+ background: #FF9800;
+ width: 16px;
+ height: 16px;
+ box-shadow: 0 0 15px rgba(255, 152, 0, 1);
+ }
+
+ .floorplan-line {
+ position: absolute;
+ height: 2px;
+ background: rgba(255,255,255,0.3);
+ transform-origin: left center;
+ z-index: 1;
+ }
+
+ /* LOADING */
+ #loading {
+ position: fixed;
+ top: 0;
+ left: 0;
+ right: 0;
+ bottom: 0;
+ background: #000;
+ display: flex;
+ flex-direction: column;
+ justify-content: center;
+ align-items: center;
+ z-index: 10000;
+ transition: opacity 0.5s;
+ }
+
+ #loading.hidden {
+ opacity: 0;
+ pointer-events: none;
+ }
+
+ #loading h1 {
+ color: white;
+ font-size: 32px;
+ margin-bottom: 20px;
+ }
+
+ .spinner {
+ width: 50px;
+ height: 50px;
+ border: 5px solid rgba(255,255,255,0.3);
+ border-top-color: #4CAF50;
+ border-radius: 50%;
+ animation: spin 1s linear infinite;
+ }
+
+ @keyframes spin {
+ to { transform: rotate(360deg); }
+ }
+
+ /* CONTROLS */
+ #controls {
+ position: absolute;
+ bottom: 30px;
+ right: 30px;
+ pointer-events: all;
+ }
+
+ .control-btn {
+ background: rgba(0,0,0,0.8);
+ backdrop-filter: blur(10px);
+ color: white;
+ border: none;
+ padding: 12px 20px;
+ border-radius: 10px;
+ cursor: pointer;
+ font-size: 16px;
+ margin-left: 10px;
+ transition: all 0.3s;
+ }
+
+ .control-btn:hover {
+ background: rgba(255,255,255,0.2);
+ transform: translateY(-2px);
+ }
+
+ /* FILE SELECTOR */
+ #file-selector {
+ position: fixed;
+ top: 0;
+ left: 0;
+ right: 0;
+ bottom: 0;
+ background: rgba(0,0,0,0.95);
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ z-index: 20000;
+ }
+
+ #file-selector.hidden {
+ display: none;
+ }
+
+ #file-selector-content {
+ background: #1a1a1a;
+ padding: 40px;
+ border-radius: 20px;
+ text-align: center;
+ max-width: 500px;
+ }
+
+ #file-selector-content h2 {
+ color: white;
+ margin-bottom: 20px;
+ }
+
+ #file-selector-content input {
+ display: none;
+ }
+
+ #file-selector-content label {
+ display: inline-block;
+ background: #4CAF50;
+ color: white;
+ padding: 15px 30px;
+ border-radius: 10px;
+ cursor: pointer;
+ transition: all 0.3s;
+ }
+
+ #file-selector-content label:hover {
+ background: #45a049;
+ transform: translateY(-2px);
+ }
+
+ /* MODAL CONTENUTI */
+ .modal-overlay {
+ position: fixed;
+ top: 0;
+ left: 0;
+ right: 0;
+ bottom: 0;
+ background: rgba(0,0,0,0.95);
+ z-index: 30000;
+ display: none;
+ justify-content: center;
+ align-items: center;
+ padding: 20px;
+ }
+
+ .modal-overlay.active {
+ display: flex;
+ }
+
+ .modal-content {
+ background: #1a1a1a;
+ border-radius: 20px;
+ padding: 30px;
+ max-width: 1000px;
+ width: 90%;
+ max-height: 90vh;
+ overflow-y: auto;
+ color: white;
+ }
+
+ .modal-content h2 {
+ margin-bottom: 20px;
+ }
+
+ .modal-close {
+ width: 100%;
+ padding: 15px;
+ background: #f44336;
+ color: white;
+ border: none;
+ border-radius: 8px;
+ cursor: pointer;
+ font-size: 16px;
+ margin-top: 20px;
+ }
+
+ .modal-close:hover {
+ background: #d32f2f;
+ }
+ </style>
+</head>
+<body>
+ <!-- LOADING -->
+ <div id="loading">
+ <h1> Tour Viewer</h1>
+ <div class="spinner"></div>
+ <p style="color: #ccc; margin-top: 20px;">Caricamento...</p>
+ </div>
+
+ <!-- FILE SELECTOR -->
+ <div id="file-selector">
+ <div id="file-selector-content">
+ <h2> Carica Tour JSON</h2>
+ <p style="color: #ccc; margin-bottom: 30px;">Seleziona il file JSON del percorso creato con l'editor</p>
+ <input type="file" id="json-file-input" accept=".json">
+ <label for="json-file-input"> Scegli File JSON</label>
+ </div>
+ </div>
+
+ <!-- VIEWER -->
+ <div id="viewer-container"></div>
+
+ <!-- UI OVERLAY -->
+ <div id="ui-overlay">
+ <!-- Info Punto -->
+ <div id="punto-info">
+ <h2 id="punto-title">Caricamento...</h2>
+ <p id="punto-desc">Preparazione tour</p>
+ </div>
+
+ <!-- Floorplan -->
+ <div id="floorplan">
+ <h3> Mappa</h3>
+ <div id="floorplan-canvas"></div>
+ </div>
+
+ <!-- Controls -->
+ <div id="controls">
+ <button class="control-btn" onclick="changeFile()"> Cambia Tour</button>
+ </div>
+ </div>
+
+ <!-- MODAL MP4 -->
+ <div id="modal-mp4" class="modal-overlay">
+ <div class="modal-content">
+ <div id="modal-mp4-content"></div>
+ <button class="modal-close" onclick="closeModal('modal-mp4')"> CHIUDI</button>
+ </div>
+ </div>
+
+ <!-- MODAL MORE -->
+ <div id="modal-more" class="modal-overlay">
+ <div class="modal-content">
+ <div id="modal-more-content"></div>
+ <button class="modal-close" onclick="closeModal('modal-more')"> CHIUDI</button>
+ </div>
+ </div>
+
+ <!-- MODAL 3D -->
+ <div id="modal-3d" class="modal-overlay">
+ <div class="modal-content">
+ <div id="modal-3d-content"></div>
+ <button class="modal-close" onclick="closeModal('modal-3d')"> CHIUDI</button>
+ </div>
+ </div>
+
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+ <script src="viewer_threejs_PULITO.js?v=20251008b"></script>
+</body>
+</html>

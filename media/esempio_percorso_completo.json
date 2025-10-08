@@ -1,0 +1,103 @@
+{
+  "nome": "Tour Esempio Con Contenuti",
+  "descrizione": "Esempio completo con MP4 e MORE",
+  "punti": [
+    {
+      "foto": "IMG_001.jpg",
+      "foto_numero": 1,
+      "nome": "Punto 1",
+      "descrizione": "Ingresso"
+    },
+    {
+      "foto": "IMG_002.jpg",
+      "foto_numero": 2,
+      "nome": "Punto 2",
+      "descrizione": "Sala principale"
+    }
+  ],
+  "hotspots": {
+    "1": [
+      {
+        "tipo": "incrocio",
+        "position": { "x": 450, "y": 50, "z": -200 },
+        "targetFoto": 2
+      },
+      {
+        "tipo": "chiedi",
+        "position": { "x": 480, "y": 120, "z": -50 },
+        "content": {
+          "type": "video",
+          "src": "media/videos/video_001.mp4",
+          "title": "Video Introduttivo",
+          "description": "Benvenuto nel tour virtuale"
+        }
+      },
+      {
+        "tipo": "more",
+        "position": { "x": 450, "y": 170, "z": 110 },
+        "content": {
+          "type": "text",
+          "title": "Informazioni Storiche",
+          "html": "<h2>Storia dell'edificio</h2><p>Questo edificio risale al 1800...</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit...</p>"
+        }
+      }
+    ],
+    "2": [
+      {
+        "tipo": "chiedi",
+        "position": { "x": 490, "y": 80, "z": 80 },
+        "content": {
+          "type": "audio",
+          "src": "media/audio/narrazione_001.mp3",
+          "title": "Guida Audio",
+          "description": "Ascolta la descrizione della sala"
+        }
+      },
+      {
+        "tipo": "more",
+        "position": { "x": 460, "y": 15, "z": 200 },
+        "content": {
+          "type": "gallery",
+          "title": "Galleria Fotografica",
+          "images": [
+            {
+              "src": "media/images/gallery_01_img001.jpg",
+              "caption": "Vista 1"
+            },
+            {
+              "src": "media/images/gallery_01_img002.jpg",
+              "caption": "Vista 2"
+            },
+            {
+              "src": "media/images/gallery_01_img003.jpg",
+              "caption": "Vista 3"
+            }
+          ]
+        }
+      },
+      {
+        "tipo": "more",
+        "position": { "x": 440, "y": 200, "z": -110 },
+        "content": {
+          "type": "model3d",
+          "src": "media/models/statua.glb",
+          "title": "Modello 3D Statua",
+          "description": "Esplora il modello tridimensionale",
+          "scale": 1.0,
+          "autoRotate": true
+        }
+      },
+      {
+        "tipo": "more",
+        "position": { "x": 470, "y": -40, "z": -150 },
+        "content": {
+          "type": "sketchfab",
+          "modelId": "abc123xyz456",
+          "title": "Modello Sketchfab",
+          "description": "Visualizza su Sketchfab"
+        }
+      }
+    ]
+  },
+  "dataCreazione": "2025-10-01T10:00:00.000Z"
+}
