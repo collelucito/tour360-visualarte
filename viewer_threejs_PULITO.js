@@ -86,7 +86,10 @@ function getPhotoUrl(filename) {
  return githubUrl;
 }
 
-window.onload = function() {
+// Auto-execute when script loads
+(function() {
+ console.log('🚀 Viewer script caricato');
+
  // Check if tour data was pre-loaded (for auto-load mode)
  if (window.tourData) {
  console.log('📦 Tour pre-caricato, avvio automatico...');
@@ -101,9 +104,10 @@ window.onload = function() {
  }
 
  console.log('✅ Viewer Three.js Ready - Supporto 4 hotspot');
-};
+})();
 
 function startTour(data) {
+ try {
  tourData = data;
  console.log('📦 Tour caricato:', tourData);
 
@@ -121,8 +125,11 @@ function startTour(data) {
  }
 
  // Inizia tour
+ console.log('🎬 Inizializzazione Three.js...');
  initThreeJS();
+ console.log('📥 Preload immagini...');
  preloadAllImages();
+ console.log('📍 Caricamento primo punto...');
  loadPunto(0);
 
  // Genera floorplan se il div esiste
@@ -138,6 +145,15 @@ function startTour(data) {
  floorplanDiv.style.backgroundPosition = 'center';
  floorplanDiv.style.backgroundColor = 'rgba(0,0,0,0.8)';
  floorplanDiv.style.backgroundBlendMode = 'darken';
+ }
+ }
+
+ console.log('✅ Tour avviato con successo');
+ } catch (error) {
+ console.error('❌ Errore durante avvio tour:', error);
+ const loading = document.getElementById('loading');
+ if (loading) {
+ loading.innerHTML = '<h1 style="color:white">❌ Errore</h1><p style="color: white;">Errore inizializzazione: ' + error.message + '</p>';
  }
  }
 }
