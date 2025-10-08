@@ -51,10 +51,45 @@ const crossfadeFragmentShader = `
 `;
 
 // ==================== INIT ====================
+// ==================== GITHUB PHOTO LOADER ====================
+function getPhotoUrl(filename) {
+ // Extract photo number from filename (e.g., "IMG_092.jpg" -> 92)
+ const match = filename.match(/IMG_(\d+)\.jpg/);
+ if (!match) return filename; // If not a standard photo, return as is
+
+ const photoNum = parseInt(match[1]);
+
+ // Determine which repository based on photo number
+ // Repo 1: IMG_001 - IMG_040
+ // Repo 2: IMG_041 - IMG_080
+ // Repo 3: IMG_081 - IMG_120
+ // Repo 4: IMG_121 - IMG_160
+ // Repo 5: IMG_161 - IMG_198
+
+ let repoNum;
+ if (photoNum >= 1 && photoNum <= 40) {
+ repoNum = 1;
+ } else if (photoNum >= 41 && photoNum <= 80) {
+ repoNum = 2;
+ } else if (photoNum >= 81 && photoNum <= 120) {
+ repoNum = 3;
+ } else if (photoNum >= 121 && photoNum <= 160) {
+ repoNum = 4;
+ } else if (photoNum >= 161 && photoNum <= 198) {
+ repoNum = 5;
+ } else {
+ return filename; // Out of range, return as is
+ }
+
+ const githubUrl = `https://raw.githubusercontent.com/collelucito/tour360-photos-${repoNum}/main/${filename}`;
+ console.log(`📸 Loading ${filename} from repo ${repoNum}: ${githubUrl}`);
+ return githubUrl;
+}
+
 window.onload = function() {
  // Gestione caricamento JSON
  document.getElementById('json-file-input').addEventListener('change', handleFileSelect);
- 
+
  console.log('✅ Viewer Three.js Ready - Supporto 4 hotspot');
 };
 
@@ -83,7 +118,7 @@ function handleFileSelect(event) {
 
  // Aggiungi sfondo prima foto alla card mappa
  if (tourData.punti && tourData.punti.length > 0) {
- const primaFoto = tourData.punti[0].foto;
+ const primaFoto = getPhotoUrl(tourData.punti[0].foto);
  const floorplanDiv = document.getElementById('floorplan');
  floorplanDiv.style.backgroundImage = `url('${primaFoto}')`;
  floorplanDiv.style.backgroundSize = 'cover';
@@ -266,24 +301,26 @@ function preloadAllImages() {
  if (tourData.punti) {
  tourData.punti.forEach(punto => {
  const img = new Image();
- img.src = punto.foto;
+ img.src = getPhotoUrl(punto.foto);
  console.log('✅ Precaricata:', punto.foto);
  });
  }
 }
 
 function loadTextureCrossfade(filename, callback) {
- if (textureCache[filename]) {
- applicaTexture(textureCache[filename], callback);
+ const photoUrl = getPhotoUrl(filename);
+
+ if (textureCache[photoUrl]) {
+ applicaTexture(textureCache[photoUrl], callback);
  return;
  }
- 
+
  const textureLoader = new THREE.TextureLoader();
- 
+
  textureLoader.load(
- filename,
+ photoUrl,
  function(texture) {
- textureCache[filename] = texture;
+ textureCache[photoUrl] = texture;
  applicaTexture(texture, callback);
  },
  undefined,

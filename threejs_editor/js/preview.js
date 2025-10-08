@@ -8,6 +8,41 @@ import { MediaModal } from './media-modal.js';
 import { ContentModal } from './content-modal.js';
 import { RoutesFooter } from './routes-footer.js';
 
+// ==================== GITHUB PHOTO LOADER ====================
+function getPhotoUrl(filename) {
+    // Extract photo number from filename (e.g., "IMG_092.jpg" -> 92)
+    const match = filename.match(/IMG_(\d+)\.jpg/);
+    if (!match) return filename; // If not a standard photo, return as is
+
+    const photoNum = parseInt(match[1]);
+
+    // Determine which repository based on photo number
+    // Repo 1: IMG_001 - IMG_040
+    // Repo 2: IMG_041 - IMG_080
+    // Repo 3: IMG_081 - IMG_120
+    // Repo 4: IMG_121 - IMG_160
+    // Repo 5: IMG_161 - IMG_198
+
+    let repoNum;
+    if (photoNum >= 1 && photoNum <= 40) {
+        repoNum = 1;
+    } else if (photoNum >= 41 && photoNum <= 80) {
+        repoNum = 2;
+    } else if (photoNum >= 81 && photoNum <= 120) {
+        repoNum = 3;
+    } else if (photoNum >= 121 && photoNum <= 160) {
+        repoNum = 4;
+    } else if (photoNum >= 161 && photoNum <= 198) {
+        repoNum = 5;
+    } else {
+        return filename; // Out of range, return as is
+    }
+
+    const githubUrl = `https://raw.githubusercontent.com/collelucito/tour360-photos-${repoNum}/main/${filename}`;
+    console.log(`📸 Loading ${filename} from repo ${repoNum}: ${githubUrl}`);
+    return githubUrl;
+}
+
 export class PreviewMode {
     constructor() {
         this.scene = null;
@@ -254,11 +289,11 @@ export class PreviewMode {
         
         // 🙈 MINIMAP DISABILITATA
         // this.minimap.setCurrentPoint(punto.foto_numero);
-        
+
         this.clearHotspots();
-        
-        const filename = `../` + punto.foto;
-        
+
+        const filename = getPhotoUrl(punto.foto);
+
         this.textureLoader.load(
             filename,
             (texture) => {
