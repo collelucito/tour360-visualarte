@@ -87,11 +87,60 @@ function getPhotoUrl(filename) {
 }
 
 window.onload = function() {
- // Gestione caricamento JSON
- document.getElementById('json-file-input').addEventListener('change', handleFileSelect);
+ // Check if tour data was pre-loaded (for auto-load mode)
+ if (window.tourData) {
+ console.log('📦 Tour pre-caricato, avvio automatico...');
+ startTour(window.tourData);
+ return;
+ }
+
+ // Gestione caricamento JSON manuale
+ const fileInput = document.getElementById('json-file-input');
+ if (fileInput) {
+ fileInput.addEventListener('change', handleFileSelect);
+ }
 
  console.log('✅ Viewer Three.js Ready - Supporto 4 hotspot');
 };
+
+function startTour(data) {
+ tourData = data;
+ console.log('📦 Tour caricato:', tourData);
+
+ // Nascondi selettore se esiste
+ const fileSelector = document.getElementById('file-selector');
+ if (fileSelector) {
+ fileSelector.classList.add('hidden');
+ }
+
+ // Aggiorna titolo mappa con nome percorso se esiste
+ const floorplanTitle = document.querySelector('#floorplan h3');
+ if (floorplanTitle) {
+ const nomePercorso = tourData.nome || 'Mappa';
+ floorplanTitle.textContent = `📍 ${nomePercorso}`;
+ }
+
+ // Inizia tour
+ initThreeJS();
+ preloadAllImages();
+ loadPunto(0);
+
+ // Genera floorplan se il div esiste
+ const floorplanDiv = document.getElementById('floorplan');
+ if (floorplanDiv) {
+ generateFloorplan();
+
+ // Aggiungi sfondo prima foto alla card mappa
+ if (tourData.punti && tourData.punti.length > 0) {
+ const primaFoto = getPhotoUrl(tourData.punti[0].foto);
+ floorplanDiv.style.backgroundImage = `url('${primaFoto}')`;
+ floorplanDiv.style.backgroundSize = 'cover';
+ floorplanDiv.style.backgroundPosition = 'center';
+ floorplanDiv.style.backgroundColor = 'rgba(0,0,0,0.8)';
+ floorplanDiv.style.backgroundBlendMode = 'darken';
+ }
+ }
+}
 
 function handleFileSelect(event) {
  const file = event.target.files[0];
@@ -100,33 +149,8 @@ function handleFileSelect(event) {
  const reader = new FileReader();
  reader.onload = function(e) {
  try {
- tourData = JSON.parse(e.target.result);
- console.log('📦 Tour caricato:', tourData);
-
- // Nascondi selettore
- document.getElementById('file-selector').classList.add('hidden');
-
- // Aggiorna titolo mappa con nome percorso
- const nomePercorso = tourData.nome || 'Mappa';
- document.querySelector('#floorplan h3').textContent = `📍 ${nomePercorso}`;
-
- // Inizia tour
- initThreeJS();
- preloadAllImages();
- loadPunto(0);
- generateFloorplan();
-
- // Aggiungi sfondo prima foto alla card mappa
- if (tourData.punti && tourData.punti.length > 0) {
- const primaFoto = getPhotoUrl(tourData.punti[0].foto);
- const floorplanDiv = document.getElementById('floorplan');
- floorplanDiv.style.backgroundImage = `url('${primaFoto}')`;
- floorplanDiv.style.backgroundSize = 'cover';
- floorplanDiv.style.backgroundPosition = 'center';
- floorplanDiv.style.backgroundColor = 'rgba(0,0,0,0.8)';
- floorplanDiv.style.backgroundBlendMode = 'darken';
- }
-
+ const data = JSON.parse(e.target.result);
+ startTour(data);
  } catch (error) {
  alert('❌ Errore nel file JSON: ' + error.message);
  }

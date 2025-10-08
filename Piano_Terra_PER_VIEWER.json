@@ -1,0 +1,693 @@
+{
+  "nome": "Piano Terra",
+  "descrizione": "Percorso Piano Terra",
+  "punti": [
+    {
+      "foto": "IMG_125.jpg",
+      "foto_numero": 125,
+      "nome": "Punto 125",
+      "descrizione": "Panorama 125"
+    },
+    {
+      "foto": "IMG_124.jpg",
+      "foto_numero": 124,
+      "nome": "Punto 124",
+      "descrizione": "Panorama 124"
+    },
+    {
+      "foto": "IMG_123.jpg",
+      "foto_numero": 123,
+      "nome": "Punto 123",
+      "descrizione": "Panorama 123"
+    },
+    {
+      "foto": "IMG_122.jpg",
+      "foto_numero": 122,
+      "nome": "Punto 122",
+      "descrizione": "Panorama 122"
+    },
+    {
+      "foto": "IMG_121.jpg",
+      "foto_numero": 121,
+      "nome": "Punto 121",
+      "descrizione": "Panorama 121"
+    },
+    {
+      "foto": "IMG_120.jpg",
+      "foto_numero": 120,
+      "nome": "Punto 120",
+      "descrizione": "Panorama 120"
+    },
+    {
+      "foto": "IMG_119.jpg",
+      "foto_numero": 119,
+      "nome": "Punto 7",
+      "descrizione": "Foto 119"
+    },
+    {
+      "foto": "IMG_118.jpg",
+      "foto_numero": 118,
+      "nome": "Punto 118",
+      "descrizione": "Panorama 118"
+    },
+    {
+      "foto": "IMG_117.jpg",
+      "foto_numero": 117,
+      "nome": "Punto 9",
+      "descrizione": "Foto 117"
+    },
+    {
+      "foto": "IMG_116.jpg",
+      "foto_numero": 116,
+      "nome": "Punto 116",
+      "descrizione": "Panorama 116"
+    },
+    {
+      "foto": "IMG_115.jpg",
+      "foto_numero": 115,
+      "nome": "Punto 115",
+      "descrizione": "Panorama 115"
+    },
+    {
+      "foto": "IMG_114.jpg",
+      "foto_numero": 114,
+      "nome": "Punto 114",
+      "descrizione": "Panorama 114"
+    },
+    {
+      "foto": "IMG_113.jpg",
+      "foto_numero": 113,
+      "nome": "Punto 113",
+      "descrizione": "Panorama 113"
+    },
+    {
+      "foto": "IMG_112.jpg",
+      "foto_numero": 112,
+      "nome": "Punto 112",
+      "descrizione": "Panorama 112"
+    },
+    {
+      "foto": "IMG_111.jpg",
+      "foto_numero": 111,
+      "nome": "Punto 111",
+      "descrizione": "Panorama 111"
+    },
+    {
+      "foto": "IMG_110.jpg",
+      "foto_numero": 110,
+      "nome": "Punto 110",
+      "descrizione": "Panorama 110"
+    },
+    {
+      "foto": "IMG_109.jpg",
+      "foto_numero": 109,
+      "nome": "Punto 109",
+      "descrizione": "Panorama 109"
+    },
+    {
+      "foto": "IMG_108.jpg",
+      "foto_numero": 108,
+      "nome": "Punto 108",
+      "descrizione": "Panorama 108"
+    },
+    {
+      "foto": "IMG_107.jpg",
+      "foto_numero": 107,
+      "nome": "Punto 107",
+      "descrizione": "Panorama 107"
+    },
+    {
+      "foto": "IMG_106.jpg",
+      "foto_numero": 106,
+      "nome": "Punto 106",
+      "descrizione": "Panorama 106"
+    },
+    {
+      "foto": "IMG_105.jpg",
+      "foto_numero": 105,
+      "nome": "Punto 105",
+      "descrizione": "Panorama 105"
+    },
+    {
+      "foto": "IMG_104.jpg",
+      "foto_numero": 104,
+      "nome": "Punto 104",
+      "descrizione": "Panorama 104"
+    },
+    {
+      "foto": "IMG_103.jpg",
+      "foto_numero": 103,
+      "nome": "Punto 103",
+      "descrizione": "Panorama 103"
+    },
+    {
+      "foto": "IMG_102.jpg",
+      "foto_numero": 102,
+      "nome": "Punto 102",
+      "descrizione": "Panorama 102"
+    },
+    {
+      "foto": "IMG_101.jpg",
+      "foto_numero": 101,
+      "nome": "Punto 101",
+      "descrizione": "Panorama 101"
+    },
+    {
+      "foto": "IMG_100.jpg",
+      "foto_numero": 100,
+      "nome": "Punto 100",
+      "descrizione": "Panorama 100"
+    },
+    {
+      "foto": "IMG_099.jpg",
+      "foto_numero": 99,
+      "nome": "Punto 99",
+      "descrizione": "Panorama 99"
+    },
+    {
+      "foto": "IMG_098.jpg",
+      "foto_numero": 98,
+      "nome": "Punto 98",
+      "descrizione": "Panorama 98"
+    },
+    {
+      "foto": "IMG_097.jpg",
+      "foto_numero": 97,
+      "nome": "Punto 97",
+      "descrizione": "Panorama 97"
+    },
+    {
+      "foto": "IMG_096.jpg",
+      "foto_numero": 96,
+      "nome": "Punto 96",
+      "descrizione": "Panorama 96"
+    },
+    {
+      "foto": "IMG_095.jpg",
+      "foto_numero": 95,
+      "nome": "Punto 95",
+      "descrizione": "Panorama 95"
+    },
+    {
+      "foto": "IMG_094.jpg",
+      "foto_numero": 94,
+      "nome": "Punto 94",
+      "descrizione": "Panorama 94"
+    },
+    {
+      "foto": "IMG_093.jpg",
+      "foto_numero": 93,
+      "nome": "Punto 93",
+      "descrizione": "Panorama 93"
+    },
+    {
+      "foto": "IMG_092.jpg",
+      "foto_numero": 92,
+      "nome": "Punto 92",
+      "descrizione": "Panorama 92"
+    }
+  ],
+  "hotspots": {
+    "92": [
+      {
+        "tipo": "incrocio",
+        "position": {
+          "x": 437.1003550916186,
+          "y": -241.50476840689555,
+          "z": -5.288897074494804
+        },
+        "timestamp": 1759919728879,
+        "targetFoto": 119,
+        "targetName": "IMG_119.jpg",
+        "scale": 1
+      }
+    ],
+    "93": [
+      {
+        "tipo": "incrocio",
+        "targetFoto": 92,
+        "position": {
+          "x": 140.9103788438706,
+          "y": -147.7004040657038,
+          "z": 394.0081677503416
+        },
+        "timestamp": 1759919612625,
+        "scale": 0.5487161593216409
+      }
+    ],
+    "94": [
+      {
+        "tipo": "incrocio",
+        "position": {
+          "x": 34.51375209195239,
+          "y": -207.08238316333183,
+          "z": 452.8744316357288
+        },
+        "timestamp": 1759920927676,
+        "targetFoto": 93,
+        "targetName": "IMG_093.jpg",
+        "scale": 1
+      }
+    ],
+    "95": [
+      {
+        "tipo": "incrocio",
+        "targetFoto": 94,
+        "position": {
+          "x": 31.287750350173482,
+          "y": -184.57200072887693,
+          "z": 423.3426602330741
+        },
+        "timestamp": 1759919519337,
+        "scale": 0.9174469132441264
+      }
+    ],
+    "96": [
+      {
+        "tipo": "incrocio",
+        "position": {
+          "x": 136.3978683618797,
+          "y": -197.98246878411993,
+          "z": 437.86704335598455
+        },
+        "timestamp": 1759919516129,
+        "targetFoto": 95,
+        "targetName": "IMG_095.jpg",
+        "scale": 1
+      }
+    ],
+    "97": [
+      {
+        "tipo": "incrocio",
+        "targetFoto": 96,
+        "position": {
+          "x": 197.8115368310783,
+          "y": -151.56973723966752,
+          "z": 280.914265168023
+        },
+        "timestamp": 1759919410403,
+        "scale": 0.5595943630933912
+      }
+    ],
+    "98": [
+      {
+        "tipo": "incrocio",
+        "targetFoto": 97,
+        "position": {
+          "x": 97.1973624472446,
+          "y": -114.52835845176193,
+          "z": 160.27266789657858
+        },
+        "timestamp": 1759919400331,
+        "scale": 0.5909172978597087
+      }
+    ],
+    "99": [
+      {
+        "tipo": "incrocio",
+        "position": {
+          "x": -163.13192554412268,
+          "y": -325.39283091552056,
+          "z": -342.31420923299163
+        },
+        "timestamp": 1759919395595,
+        "targetFoto": 98,
+        "targetName": "IMG_098.jpg",
+        "scale": 1
+      }
+    ],
+    "100": [
+      {
+        "tipo": "incrocio",
+        "position": {
+          "x": -221.38889749890726,
+          "y": -319.11901171624424,
+          "z": -314.20856152347415
+        },
+        "timestamp": 1759919346147,
+        "targetFoto": 99,
+        "targetName": "IMG_099.jpg",
+        "scale": 1
+      }
+    ],
+    "101": [
+      {
+        "tipo": "incrocio",
+        "position": {
+          "x": -181.80815811937504,
+          "y": -315.7001139814456,
+          "z": -341.4642589686208
+        },
+        "timestamp": 1759919301139,
+        "targetFoto": 100,
+        "targetName": "IMG_100.jpg",
+        "scale": 1
+      }
+    ],
+    "102": [
+      {
+        "tipo": "incrocio",
+        "position": {
+          "x": -201.09495190672934,
+          "y": -263.27100784078107,
+          "z": -373.83742541161604
+        },
+        "timestamp": 1759919258684,
+        "targetFoto": 101,
+        "targetName": "IMG_101.jpg",
+        "scale": 1
+      }
+    ],
+    "103": [
+      {
+        "tipo": "incrocio",
+        "position": {
+          "x": 432.510274450443,
+          "y": -248.46157720380202,
+          "z": -18.532599177518964
+        },
+        "timestamp": 1759919236676,
+        "targetFoto": 102,
+        "targetName": "IMG_102.jpg",
+        "scale": 1
+      }
+    ],
+    "104": [
+      {
+        "tipo": "incrocio",
+        "position": {
+          "x": 430.298568413246,
+          "y": -237.94636918631755,
+          "z": 88.0069344715087
+        },
+        "timestamp": 1759919171853,
+        "targetFoto": 103,
+        "targetName": "IMG_103.jpg",
+        "scale": 1
+      }
+    ],
+    "105": [
+      {
+        "tipo": "incrocio",
+        "position": {
+          "x": 253.81886263727893,
+          "y": -266.66942759306215,
+          "z": 337.62739040762057
+        },
+        "timestamp": 1759919148221,
+        "targetFoto": 104,
+        "targetName": "IMG_104.jpg",
+        "scale": 1
+      }
+    ],
+    "106": [
+      {
+        "tipo": "incrocio",
+        "position": {
+          "x": 231.45020248404947,
+          "y": -310.85271829735547,
+          "z": 315.1864381303549
+        },
+        "timestamp": 1759919061190,
+        "targetFoto": 105,
+        "targetName": "IMG_105.jpg",
+        "scale": 1
+      }
+    ],
+    "107": [
+      {
+        "tipo": "incrocio",
+        "position": {
+          "x": 179.27009331588366,
+          "y": -236.04930133815816,
+          "z": 402.2891236605149
+        },
+        "timestamp": 1759919007630,
+        "targetFoto": 106,
+        "targetName": "IMG_106.jpg",
+        "scale": 0.701965084072632
+      }
+    ],
+    "108": [
+      {
+        "tipo": "incrocio",
+        "targetFoto": 107,
+        "position": {
+          "x": 67.86559616216289,
+          "y": -247.68343262788397,
+          "z": 375.95637628953625
+        },
+        "timestamp": 1759918937575,
+        "scale": 0.40116174048308384
+      }
+    ],
+    "109": [
+      {
+        "tipo": "incrocio",
+        "targetFoto": 108,
+        "position": {
+          "x": 71.10192856376801,
+          "y": -319.91921804650036,
+          "z": 309.30190558438727
+        },
+        "timestamp": 1759918906367,
+        "scale": 0.8655734863871639
+      }
+    ],
+    "110": [
+      {
+        "tipo": "incrocio",
+        "targetFoto": 109,
+        "position": {
+          "x": -28.12612881718411,
+          "y": -150.51414665516114,
+          "z": -177.36142719363963
+        },
+        "timestamp": 1759918886823,
+        "scale": 0.6216841419846251
+      }
+    ],
+    "111": [
+      {
+        "tipo": "incrocio",
+        "targetFoto": 110,
+        "position": {
+          "x": -48.75040337542194,
+          "y": -188.06149807697625,
+          "z": -141.9087527957094
+        },
+        "timestamp": 1759918869448,
+        "scale": 0.6828396516821642
+      }
+    ],
+    "112": [
+      {
+        "tipo": "incrocio",
+        "targetFoto": 111,
+        "position": {
+          "x": -69.25445000638507,
+          "y": -174.2836049906254,
+          "z": -127.64196317908075
+        },
+        "timestamp": 1759918850784,
+        "scale": 0.6465379785018074
+      },
+      {
+        "tipo": "incrocio",
+        "targetFoto": 113,
+        "position": {
+          "x": 0,
+          "y": 50,
+          "z": 300
+        },
+        "timestamp": 1759918850785
+      }
+    ],
+    "113": [
+      {
+        "tipo": "incrocio",
+        "targetFoto": 112,
+        "position": {
+          "x": -59.89299347122212,
+          "y": -115.09775902373073,
+          "z": -89.72897776060664
+        },
+        "timestamp": 1759918837264,
+        "scale": 0.5304248308209606
+      }
+    ],
+    "114": [
+      {
+        "tipo": "incrocio",
+        "targetFoto": 113,
+        "position": {
+          "x": -109.42782305844395,
+          "y": -111.98305792813375,
+          "z": -15.053197820682128
+        },
+        "timestamp": 1759918822952,
+        "scale": 0.21071455612887466
+      }
+    ],
+    "115": [
+      {
+        "tipo": "incrocio",
+        "targetFoto": 114,
+        "position": {
+          "x": -127.80086967535934,
+          "y": -93.50854585940961,
+          "z": -47.67357007093239
+        },
+        "timestamp": 1759918811616,
+        "scale": 0.23108033736689956
+      }
+    ],
+    "116": [
+      {
+        "tipo": "incrocio",
+        "targetFoto": 115,
+        "position": {
+          "x": -116.18943561370666,
+          "y": -113.4757821943328,
+          "z": -207.37911096172166
+        },
+        "timestamp": 1759918790657,
+        "scale": 0.8301899667260566
+      }
+    ],
+    "117": [
+      {
+        "tipo": "incrocio",
+        "targetFoto": 116,
+        "position": {
+          "x": 0,
+          "y": 50,
+          "z": -300
+        }
+      },
+      {
+        "tipo": "incrocio",
+        "targetFoto": 118,
+        "position": {
+          "x": 0,
+          "y": 50,
+          "z": 300
+        }
+      }
+    ],
+    "118": [
+      {
+        "tipo": "incrocio",
+        "position": {
+          "x": 87.18745934614222,
+          "y": -187.5158434885728,
+          "z": -454.6748816470916
+        },
+        "timestamp": 1759918788297,
+        "targetFoto": 116,
+        "targetName": "IMG_116.jpg",
+        "scale": 1
+      }
+    ],
+    "119": [
+      {
+        "tipo": "incrocio",
+        "targetFoto": 118,
+        "position": {
+          "x": 0,
+          "y": 50,
+          "z": -300
+        }
+      },
+      {
+        "tipo": "incrocio",
+        "targetFoto": 120,
+        "position": {
+          "x": 0,
+          "y": 50,
+          "z": 300
+        }
+      }
+    ],
+    "120": [
+      {
+        "tipo": "incrocio",
+        "position": {
+          "x": 20.086839745918635,
+          "y": -274.42868057347715,
+          "z": 416.4611704964683
+        },
+        "timestamp": 1759918702825,
+        "targetFoto": 118,
+        "targetName": "IMG_118.jpg",
+        "scale": 1
+      }
+    ],
+    "121": [
+      {
+        "tipo": "incrocio",
+        "targetFoto": 120,
+        "position": {
+          "x": -146.7152891704314,
+          "y": -141.11548483680627,
+          "z": 17.131703997407023
+        },
+        "timestamp": 1759918591922,
+        "scale": 0.647689059916345
+      }
+    ],
+    "122": [
+      {
+        "tipo": "incrocio",
+        "targetFoto": 121,
+        "position": {
+          "x": -127.61627244071636,
+          "y": -146.48563514729312,
+          "z": 6.198312061990314
+        },
+        "timestamp": 1759918567051,
+        "scale": 0.42494464833721923
+      }
+    ],
+    "123": [
+      {
+        "tipo": "incrocio",
+        "position": {
+          "x": -430.7751306313584,
+          "y": -245.8478252428164,
+          "z": -56.74999182150708
+        },
+        "timestamp": 1759918563874,
+        "targetFoto": 122,
+        "targetName": "IMG_122.jpg",
+        "scale": 1
+      }
+    ],
+    "124": [
+      {
+        "tipo": "incrocio",
+        "targetFoto": 123,
+        "position": {
+          "x": -82.78517604849837,
+          "y": -117.36034217677387,
+          "z": -147.5415739508785
+        },
+        "timestamp": 1759918470804,
+        "scale": 0.3894074615883919
+      }
+    ],
+    "125": [
+      {
+        "tipo": "incrocio",
+        "targetFoto": 124,
+        "position": {
+          "x": -196.37580789365362,
+          "y": -133.7616359094953,
+          "z": -91.88975243644656
+        },
+        "timestamp": 1759918448501,
+        "scale": 0.48932027634554154
+      }
+    ]
+  }
+}
