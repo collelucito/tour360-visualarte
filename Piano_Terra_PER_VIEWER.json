@@ -3,36 +3,6 @@
   "descrizione": "Percorso Piano Terra",
   "punti": [
     {
-      "foto": "IMG_125.jpg",
-      "foto_numero": 125,
-      "nome": "Punto 125",
-      "descrizione": "Panorama 125"
-    },
-    {
-      "foto": "IMG_124.jpg",
-      "foto_numero": 124,
-      "nome": "Punto 124",
-      "descrizione": "Panorama 124"
-    },
-    {
-      "foto": "IMG_123.jpg",
-      "foto_numero": 123,
-      "nome": "Punto 123",
-      "descrizione": "Panorama 123"
-    },
-    {
-      "foto": "IMG_122.jpg",
-      "foto_numero": 122,
-      "nome": "Punto 122",
-      "descrizione": "Panorama 122"
-    },
-    {
-      "foto": "IMG_121.jpg",
-      "foto_numero": 121,
-      "nome": "Punto 121",
-      "descrizione": "Panorama 121"
-    },
-    {
       "foto": "IMG_120.jpg",
       "foto_numero": 120,
       "nome": "Punto 120",
@@ -621,72 +591,6 @@
         "targetFoto": 118,
         "targetName": "IMG_118.jpg",
         "scale": 1
-      }
-    ],
-    "121": [
-      {
-        "tipo": "incrocio",
-        "targetFoto": 120,
-        "position": {
-          "x": -146.7152891704314,
-          "y": -141.11548483680627,
-          "z": 17.131703997407023
-        },
-        "timestamp": 1759918591922,
-        "scale": 0.647689059916345
-      }
-    ],
-    "122": [
-      {
-        "tipo": "incrocio",
-        "targetFoto": 121,
-        "position": {
-          "x": -127.61627244071636,
-          "y": -146.48563514729312,
-          "z": 6.198312061990314
-        },
-        "timestamp": 1759918567051,
-        "scale": 0.42494464833721923
-      }
-    ],
-    "123": [
-      {
-        "tipo": "incrocio",
-        "position": {
-          "x": -430.7751306313584,
-          "y": -245.8478252428164,
-          "z": -56.74999182150708
-        },
-        "timestamp": 1759918563874,
-        "targetFoto": 122,
-        "targetName": "IMG_122.jpg",
-        "scale": 1
-      }
-    ],
-    "124": [
-      {
-        "tipo": "incrocio",
-        "targetFoto": 123,
-        "position": {
-          "x": -82.78517604849837,
-          "y": -117.36034217677387,
-          "z": -147.5415739508785
-        },
-        "timestamp": 1759918470804,
-        "scale": 0.3894074615883919
-      }
-    ],
-    "125": [
-      {
-        "tipo": "incrocio",
-        "targetFoto": 124,
-        "position": {
-          "x": -196.37580789365362,
-          "y": -133.7616359094953,
-          "z": -91.88975243644656
-        },
-        "timestamp": 1759918448501,
-        "scale": 0.48932027634554154
       }
     ]
   }
