@@ -120,6 +120,8 @@ function startTour(data) {
  tourData = data;
  console.log('📦 Tour caricato:', tourData);
 
+ const loadingText = document.getElementById('loading-text');
+
  // Nascondi selettore se esiste
  const fileSelector = document.getElementById('file-selector');
  if (fileSelector) {
@@ -135,10 +137,18 @@ function startTour(data) {
 
  // Inizia tour
  console.log('🎬 Inizializzazione Three.js...');
+ if (loadingText) loadingText.textContent = 'Inizializzazione Three.js...';
+
  initThreeJS();
+
  console.log('📥 Preload immagini...');
+ if (loadingText) loadingText.textContent = 'Caricamento immagini...';
+
  preloadAllImages();
+
  console.log('📍 Caricamento primo punto...');
+ if (loadingText) loadingText.textContent = 'Caricamento panorama...';
+
  loadPunto(0);
 
  // Genera floorplan se il div esiste
@@ -374,7 +384,17 @@ function loadTextureCrossfade(filename, callback) {
  },
  undefined,
  function(error) {
- console.error('❌ Errore caricamento:', error);
+ console.error('❌ Errore caricamento texture:', error);
+ console.error('📸 URL fallito:', photoUrl);
+
+ // Show error to user
+ const loadingEl = document.getElementById('loading');
+ const loadingText = document.getElementById('loading-text');
+
+ if (loadingEl && loadingText) {
+ loadingText.innerHTML = '❌ Errore caricamento immagine<br><small style="font-size: 12px;">Possibile problema: immagine troppo grande per Safari mobile.<br>Prova a ridurre la risoluzione delle foto panoramiche.</small>';
+ loadingEl.style.display = 'flex'; // Make sure it's visible
+ }
  }
  );
 }
