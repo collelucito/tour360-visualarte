@@ -292,7 +292,7 @@
  <div id="loading">
  <h1> Tour Viewer</h1>
  <div class="spinner"></div>
- <p style="color: #ccc; margin-top: 20px;">Caricamento...</p>
+ <p id="loading-text" style="color: #ccc; margin-top: 20px;">Caricamento...</p>
  </div>
 
  <!-- FILE SELECTOR -->
@@ -359,9 +359,9 @@
  console.log('🔵 DOMContentLoaded - Inizio caricamento');
 
  // Update loading message
- const loadingEl = document.getElementById('loading');
- if (loadingEl) {
- loadingEl.querySelector('p').textContent = 'Caricamento JSON...';
+ const loadingText = document.getElementById('loading-text');
+ if (loadingText) {
+ loadingText.textContent = 'Caricamento JSON...';
  }
 
  // Hide file selector immediately
@@ -376,8 +376,9 @@
  })
  .then(data => {
  console.log('✅ Tour caricato automaticamente:', data);
- if (loadingEl) {
- loadingEl.querySelector('p').textContent = 'Caricamento viewer...';
+ const loadingText = document.getElementById('loading-text');
+ if (loadingText) {
+ loadingText.textContent = 'Caricamento viewer...';
  }
 
  // Store tour data globally
@@ -385,12 +386,13 @@
 
  // Load the viewer script
  const script = document.createElement('script');
- script.src = 'viewer_threejs_PULITO.js?v=20251008f';
+ script.src = 'viewer_threejs_PULITO.js?v=20251008g';
  script.onload = function() {
  console.log('🔵 Viewer script loaded successfully');
  };
  script.onerror = function() {
  console.error('❌ Errore caricamento viewer script');
+ const loadingEl = document.getElementById('loading');
  if (loadingEl) {
  loadingEl.innerHTML = '<h1 style="color:white">❌ Errore</h1><p style="color: white;">Errore caricamento script viewer</p>';
  }
