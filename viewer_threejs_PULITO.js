@@ -438,9 +438,9 @@ function loadPunto(index) {
  // Load texture
  loadTextureCrossfade(punto.foto, function() {
  document.getElementById('loading').classList.add('hidden');
- 
- // Get hotspots for this foto
- const fotoHotspots = tourData.hotspots[punto.foto_numero] || [];
+
+ // Get hotspots for this foto (support both structures)
+ const fotoHotspots = punto.hotspots || (tourData.hotspots ? tourData.hotspots[punto.foto_numero] : []) || [];
  addHotspots(fotoHotspots, punto.foto_numero);
  });
  
