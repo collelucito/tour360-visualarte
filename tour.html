@@ -356,25 +356,53 @@
  <script>
  // Auto-load tour on page load
  window.addEventListener('DOMContentLoaded', function() {
+ console.log('🔵 DOMContentLoaded - Inizio caricamento');
+
+ // Update loading message
+ const loadingEl = document.getElementById('loading');
+ if (loadingEl) {
+ loadingEl.querySelector('p').textContent = 'Caricamento JSON...';
+ }
+
  // Hide file selector immediately
  document.getElementById('file-selector').style.display = 'none';
 
  // Load the JSON file automatically
  fetch('Piano_Terra_PER_VIEWER.json')
- .then(response => response.json())
+ .then(response => {
+ console.log('🔵 JSON response status:', response.status);
+ if (!response.ok) throw new Error('HTTP ' + response.status);
+ return response.json();
+ })
  .then(data => {
  console.log('✅ Tour caricato automaticamente:', data);
+ if (loadingEl) {
+ loadingEl.querySelector('p').textContent = 'Caricamento viewer...';
+ }
+
  // Store tour data globally
  window.tourData = data;
+
  // Load the viewer script
  const script = document.createElement('script');
- script.src = 'viewer_threejs_PULITO.js?v=20251008e';
+ script.src = 'viewer_threejs_PULITO.js?v=20251008f';
+ script.onload = function() {
+ console.log('🔵 Viewer script loaded successfully');
+ };
+ script.onerror = function() {
+ console.error('❌ Errore caricamento viewer script');
+ if (loadingEl) {
+ loadingEl.innerHTML = '<h1 style="color:white">❌ Errore</h1><p style="color: white;">Errore caricamento script viewer</p>';
+ }
+ };
  document.body.appendChild(script);
  })
  .catch(error => {
  console.error('❌ Errore caricamento tour:', error);
- document.getElementById('loading').innerHTML =
- '<h1 style="color:white">❌ Errore</h1><p style="color: white;">Impossibile caricare il tour</p>';
+ if (loadingEl) {
+ loadingEl.innerHTML =
+ '<h1 style="color:white">❌ Errore</h1><p style="color: white;">Impossibile caricare il tour: ' + error.message + '</p>';
+ }
  });
  });
  </script>

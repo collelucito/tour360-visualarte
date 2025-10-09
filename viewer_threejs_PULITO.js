@@ -90,9 +90,18 @@ function getPhotoUrl(filename) {
 (function() {
  console.log('🚀 Viewer script caricato');
 
+ // Update loading message
+ const loadingEl = document.getElementById('loading');
+ if (loadingEl) {
+ loadingEl.querySelector('p').textContent = 'Inizializzazione viewer...';
+ }
+
  // Check if tour data was pre-loaded (for auto-load mode)
  if (window.tourData) {
  console.log('📦 Tour pre-caricato, avvio automatico...');
+ if (loadingEl) {
+ loadingEl.querySelector('p').textContent = 'Avvio tour...';
+ }
  startTour(window.tourData);
  return;
  }
