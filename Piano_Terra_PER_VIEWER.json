@@ -3,10 +3,40 @@
   "descrizione": "Percorso Piano Terra",
   "punti": [
     {
+      "foto": "IMG_125.jpg",
+      "foto_numero": 125,
+      "nome": "Punto 125",
+      "descrizione": "Panorama 125"
+    },
+    {
+      "foto": "IMG_124.jpg",
+      "foto_numero": 124,
+      "nome": "Piazzale ",
+      "descrizione": "Panorama 124"
+    },
+    {
+      "foto": "IMG_123.jpg",
+      "foto_numero": 123,
+      "nome": "Punto 123",
+      "descrizione": "Panorama 123"
+    },
+    {
+      "foto": "IMG_122.jpg",
+      "foto_numero": 122,
+      "nome": "Portone ",
+      "descrizione": "Panorama 122"
+    },
+    {
+      "foto": "IMG_121.jpg",
+      "foto_numero": 121,
+      "nome": "Punto 121",
+      "descrizione": "Panorama 121"
+    },
+    {
       "foto": "IMG_120.jpg",
       "foto_numero": 120,
-      "nome": "Punto 120",
-      "descrizione": "Panorama 120"
+      "nome": "Reception",
+      "descrizione": "Informazioni"
     },
     {
       "foto": "IMG_119.jpg",
@@ -17,8 +47,8 @@
     {
       "foto": "IMG_118.jpg",
       "foto_numero": 118,
-      "nome": "Punto 118",
-      "descrizione": "Panorama 118"
+      "nome": "Hall",
+      "descrizione": "accesso ai piani "
     },
     {
       "foto": "IMG_117.jpg",
@@ -29,20 +59,20 @@
     {
       "foto": "IMG_116.jpg",
       "foto_numero": 116,
-      "nome": "Punto 116",
-      "descrizione": "Panorama 116"
+      "nome": "Sedute ",
+      "descrizione": "le sedue sono a disposizione degli ospiti"
     },
     {
       "foto": "IMG_115.jpg",
       "foto_numero": 115,
-      "nome": "Punto 115",
-      "descrizione": "Panorama 115"
+      "nome": "sala xxx",
+      "descrizione": "esposizione di ...."
     },
     {
       "foto": "IMG_114.jpg",
       "foto_numero": 114,
-      "nome": "Punto 114",
-      "descrizione": "Panorama 114"
+      "nome": "Sala 6 ",
+      "descrizione": "ingresso"
     },
     {
       "foto": "IMG_113.jpg",
@@ -53,8 +83,8 @@
     {
       "foto": "IMG_112.jpg",
       "foto_numero": 112,
-      "nome": "Punto 112",
-      "descrizione": "Panorama 112"
+      "nome": "sala 6",
+      "descrizione": "esposizione"
     },
     {
       "foto": "IMG_111.jpg",
@@ -65,8 +95,8 @@
     {
       "foto": "IMG_110.jpg",
       "foto_numero": 110,
-      "nome": "Punto 110",
-      "descrizione": "Panorama 110"
+      "nome": "sala 6 ",
+      "descrizione": "esposizione"
     },
     {
       "foto": "IMG_109.jpg",
@@ -77,92 +107,92 @@
     {
       "foto": "IMG_108.jpg",
       "foto_numero": 108,
-      "nome": "Punto 108",
-      "descrizione": "Panorama 108"
+      "nome": "sala 6",
+      "descrizione": "sala 6"
     },
     {
       "foto": "IMG_107.jpg",
       "foto_numero": 107,
-      "nome": "Punto 107",
-      "descrizione": "Panorama 107"
+      "nome": "salal 6",
+      "descrizione": "sala 6"
     },
     {
       "foto": "IMG_106.jpg",
       "foto_numero": 106,
-      "nome": "Punto 106",
-      "descrizione": "Panorama 106"
+      "nome": "sala 6 ",
+      "descrizione": "sala 6"
     },
     {
       "foto": "IMG_105.jpg",
       "foto_numero": 105,
-      "nome": "Punto 105",
-      "descrizione": "Panorama 105"
+      "nome": "sala si ",
+      "descrizione": "sala 6"
     },
     {
       "foto": "IMG_104.jpg",
       "foto_numero": 104,
-      "nome": "Punto 104",
-      "descrizione": "Panorama 104"
+      "nome": "sala sei ",
+      "descrizione": "sala"
     },
     {
       "foto": "IMG_103.jpg",
       "foto_numero": 103,
-      "nome": "Punto 103",
-      "descrizione": "Panorama 103"
+      "nome": "sala ",
+      "descrizione": "veduta"
     },
     {
       "foto": "IMG_102.jpg",
       "foto_numero": 102,
-      "nome": "Punto 102",
-      "descrizione": "Panorama 102"
+      "nome": "sala ",
+      "descrizione": "sala"
     },
     {
       "foto": "IMG_101.jpg",
       "foto_numero": 101,
-      "nome": "Punto 101",
-      "descrizione": "Panorama 101"
+      "nome": "scudo ",
+      "descrizione": "scudo ricostruito"
     },
     {
       "foto": "IMG_100.jpg",
       "foto_numero": 100,
-      "nome": "Punto 100",
-      "descrizione": "Panorama 100"
+      "nome": "vetrina ",
+      "descrizione": "vetrina 2"
     },
     {
       "foto": "IMG_099.jpg",
       "foto_numero": 99,
-      "nome": "Punto 99",
-      "descrizione": "Panorama 99"
+      "nome": "uscita ",
+      "descrizione": "uscita sala sei"
     },
     {
       "foto": "IMG_098.jpg",
       "foto_numero": 98,
-      "nome": "Punto 98",
-      "descrizione": "Panorama 98"
+      "nome": "sala sei",
+      "descrizione": "salal sei"
     },
     {
       "foto": "IMG_097.jpg",
       "foto_numero": 97,
-      "nome": "Punto 97",
-      "descrizione": "Panorama 97"
+      "nome": "verso la hall",
+      "descrizione": "la hall"
     },
     {
       "foto": "IMG_096.jpg",
       "foto_numero": 96,
-      "nome": "Punto 96",
-      "descrizione": "Panorama 96"
+      "nome": "sala 6",
+      "descrizione": "sala 6"
     },
     {
       "foto": "IMG_095.jpg",
       "foto_numero": 95,
-      "nome": "Punto 95",
-      "descrizione": "Panorama 95"
+      "nome": "ingresso hall",
+      "descrizione": "ingresso hall"
     },
     {
       "foto": "IMG_094.jpg",
       "foto_numero": 94,
-      "nome": "Punto 94",
-      "descrizione": "Panorama 94"
+      "nome": "hall ",
+      "descrizione": "hall"
     },
     {
       "foto": "IMG_093.jpg",
@@ -244,6 +274,23 @@
         "targetFoto": 95,
         "targetName": "IMG_095.jpg",
         "scale": 1
+      },
+      {
+        "tipo": "more",
+        "position": {
+          "x": 130.63213459197345,
+          "y": 160.37541299380834,
+          "z": 454.3879096459602
+        },
+        "timestamp": 1759999983828,
+        "targetFoto": null,
+        "targetName": null,
+        "scale": 1,
+        "content": {
+          "titolo": "la sala 6",
+          "testo": "La sala è stata aperta al pubblico......",
+          "wikipedia": ""
+        }
       }
     ],
     "97": [
@@ -284,6 +331,25 @@
         "targetFoto": 98,
         "targetName": "IMG_098.jpg",
         "scale": 1
+      },
+      {
+        "tipo": "chiedi",
+        "position": {
+          "x": 260.4450706829749,
+          "y": 132.16234698505048,
+          "z": -404.5946704339541
+        },
+        "timestamp": 1759999885533,
+        "targetFoto": null,
+        "targetName": null,
+        "scale": 1,
+        "content": {
+          "video": "",
+          "audio": "",
+          "gallery": [
+            "../media/images/pexels-martinpechy-2844464.jpg"
+          ]
+        }
       }
     ],
     "100": [
@@ -368,6 +434,25 @@
         "targetFoto": 104,
         "targetName": "IMG_104.jpg",
         "scale": 1
+      },
+      {
+        "tipo": "chiedi",
+        "position": {
+          "x": 112.72118481469532,
+          "y": 115.91359935368456,
+          "z": 472.60872752361524
+        },
+        "timestamp": 1759999763222,
+        "targetFoto": null,
+        "targetName": null,
+        "scale": 1,
+        "content": {
+          "video": "",
+          "audio": "",
+          "gallery": [
+            "../media/images/wilhelm-gunkel-LpQs_3t4Dck-unsplash.jpg"
+          ]
+        }
       }
     ],
     "106": [
@@ -471,6 +556,23 @@
           "z": 300
         },
         "timestamp": 1759918850785
+      },
+      {
+        "tipo": "chiedi",
+        "position": {
+          "x": -431.5377773824471,
+          "y": 245.03641484959155,
+          "z": 54.83565356211047
+        },
+        "timestamp": 1759999512484,
+        "targetFoto": null,
+        "targetName": null,
+        "scale": 1,
+        "content": {
+          "video": "",
+          "audio": "../media/audio/museum-gymnopedie-ambient-piano.mp3",
+          "gallery": []
+        }
       }
     ],
     "113": [
@@ -591,7 +693,108 @@
         "targetFoto": 118,
         "targetName": "IMG_118.jpg",
         "scale": 1
+      },
+      {
+        "tipo": "more",
+        "position": {
+          "x": 73.32210778965805,
+          "y": 56.269442145895646,
+          "z": 490.32815506885305
+        },
+        "timestamp": 1759999255007,
+        "targetFoto": null,
+        "targetName": null,
+        "scale": 1,
+        "content": {
+          "titolo": "Informazioni",
+          "testo": "gli addetti sono felici di dare tutte le informazioni , brochure ed indicazioni sul nostro museo",
+          "wikipedia": "https://it.wikipedia.org/wiki/Museo_d%27arte_di_Chianciano"
+        }
+      }
+    ],
+    "121": [
+      {
+        "tipo": "incrocio",
+        "targetFoto": 120,
+        "position": {
+          "x": -146.7152891704314,
+          "y": -141.11548483680627,
+          "z": 17.131703997407023
+        },
+        "timestamp": 1759918591922,
+        "scale": 0.647689059916345
+      }
+    ],
+    "122": [
+      {
+        "tipo": "incrocio",
+        "targetFoto": 121,
+        "position": {
+          "x": -127.61627244071636,
+          "y": -146.48563514729312,
+          "z": 6.198312061990314
+        },
+        "timestamp": 1759918567051,
+        "scale": 0.42494464833721923
+      }
+    ],
+    "123": [
+      {
+        "tipo": "incrocio",
+        "position": {
+          "x": -430.7751306313584,
+          "y": -245.8478252428164,
+          "z": -56.74999182150708
+        },
+        "timestamp": 1759918563874,
+        "targetFoto": 122,
+        "targetName": "IMG_122.jpg",
+        "scale": 1
+      }
+    ],
+    "124": [
+      {
+        "tipo": "incrocio",
+        "targetFoto": 123,
+        "position": {
+          "x": -82.78517604849837,
+          "y": -117.36034217677387,
+          "z": -147.5415739508785
+        },
+        "timestamp": 1759918470804,
+        "scale": 0.3894074615883919
+      },
+      {
+        "tipo": "chiedi",
+        "position": {
+          "x": -390.046051401938,
+          "y": 174.29258980903955,
+          "z": -257.90969502943943
+        },
+        "timestamp": 1759998932721,
+        "targetFoto": null,
+        "targetName": null,
+        "scale": 1,
+        "content": {
+          "video": "../media/videos/Geometric_Sculpture_Of_Rodrigo_Santa_Cruz_Anchissi_G55235.mp4",
+          "audio": "",
+          "gallery": []
+        }
+      }
+    ],
+    "125": [
+      {
+        "tipo": "incrocio",
+        "targetFoto": 124,
+        "position": {
+          "x": -196.37580789365362,
+          "y": -133.7616359094953,
+          "z": -91.88975243644656
+        },
+        "timestamp": 1759918448501,
+        "scale": 0.48932027634554154
       }
     ]
-  }
+  },
+  "dataCreazione": "2025-10-06T16:18:54.622Z"
 }
