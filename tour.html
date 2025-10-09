@@ -368,7 +368,7 @@
  document.getElementById('file-selector').style.display = 'none';
 
  // Load the JSON file automatically
- fetch('Piano_Terra_PER_VIEWER.json')
+ fetch('Piano_Terra_PER_VIEWER.json?v=' + Date.now())
  .then(response => {
  console.log('🔵 JSON response status:', response.status);
  if (!response.ok) throw new Error('HTTP ' + response.status);
