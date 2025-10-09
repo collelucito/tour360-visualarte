@@ -58,8 +58,9 @@
  }
 
  .option-buttons {
- display: flex;
- gap: 15px;
+ display: grid;
+ grid-template-columns: repeat(3, 1fr);
+ gap: 10px;
  }
 
  .option-btn {
@@ -155,10 +156,22 @@
  <h2>Lingua / Language</h2>
  <div class="option-buttons">
  <button class="option-btn active" data-lang="it" onclick="selectLanguage('it')">
- 🇮🇹 Italiano
+ 🇮🇹 IT
  </button>
  <button class="option-btn" data-lang="en" onclick="selectLanguage('en')">
- 🇬🇧 English
+ 🇬🇧 EN
+ </button>
+ <button class="option-btn" data-lang="fr" onclick="selectLanguage('fr')">
+ 🇫🇷 FR
+ </button>
+ <button class="option-btn" data-lang="de" onclick="selectLanguage('de')">
+ 🇩🇪 DE
+ </button>
+ <button class="option-btn" data-lang="es" onclick="selectLanguage('es')">
+ 🇪🇸 ES
+ </button>
+ <button class="option-btn" data-lang="zh" onclick="selectLanguage('zh')">
+ 🇨🇳 中文
  </button>
  </div>
  </div>
@@ -185,24 +198,23 @@
  btn.classList.toggle('active', btn.dataset.lang === lang);
  });
 
- // Update UI text based on language
- if (lang === 'en') {
- document.querySelector('h1').textContent = '🏛️ VisualArte3D';
- document.querySelector('.subtitle').textContent = 'Interactive Virtual Tour';
- document.querySelectorAll('.option-group h2')[0].textContent = 'Tour Type';
- document.querySelectorAll('.option-group h2')[1].textContent = 'Language';
- document.querySelector('[data-type="360"]').innerHTML = '🎬 360° Tour';
- document.querySelector('[data-type="3d"]').innerHTML = '🗿 3D Tour';
- document.querySelector('.start-btn').textContent = '▶ Start Tour';
- } else {
- document.querySelector('h1').textContent = '🏛️ VisualArte3D';
- document.querySelector('.subtitle').textContent = 'Tour Virtuale Interattivo';
- document.querySelectorAll('.option-group h2')[0].textContent = 'Tipo di Tour';
- document.querySelectorAll('.option-group h2')[1].textContent = 'Lingua / Language';
- document.querySelector('[data-type="360"]').innerHTML = '🎬 Tour 360°';
- document.querySelector('[data-type="3d"]').innerHTML = '🗿 Tour 3D';
- document.querySelector('.start-btn').textContent = '▶ Avvia Tour';
- }
+ // Translations
+ const translations = {
+ it: { title: 'Tour Virtuale Interattivo', tourType: 'Tipo di Tour', language: 'Lingua / Language', tour360: '🎬 Tour 360°', tour3d: '🗿 Tour 3D', start: '▶ Avvia Tour' },
+ en: { title: 'Interactive Virtual Tour', tourType: 'Tour Type', language: 'Language', tour360: '🎬 360° Tour', tour3d: '🗿 3D Tour', start: '▶ Start Tour' },
+ fr: { title: 'Visite Virtuelle Interactive', tourType: 'Type de Visite', language: 'Langue', tour360: '🎬 Visite 360°', tour3d: '🗿 Visite 3D', start: '▶ Démarrer' },
+ de: { title: 'Interaktive Virtuelle Tour', tourType: 'Tour-Typ', language: 'Sprache', tour360: '🎬 360° Tour', tour3d: '🗿 3D Tour', start: '▶ Tour Starten' },
+ es: { title: 'Tour Virtual Interactivo', tourType: 'Tipo de Tour', language: 'Idioma', tour360: '🎬 Tour 360°', tour3d: '🗿 Tour 3D', start: '▶ Iniciar Tour' },
+ zh: { title: '互动虚拟导览', tourType: '导览类型', language: '语言', tour360: '🎬 360°导览', tour3d: '🗿 3D导览', start: '▶ 开始导览' }
+ };
+
+ const t = translations[lang];
+ document.querySelector('.subtitle').textContent = t.title;
+ document.querySelectorAll('.option-group h2')[0].textContent = t.tourType;
+ document.querySelectorAll('.option-group h2')[1].textContent = t.language;
+ document.querySelector('[data-type="360"]').innerHTML = t.tour360;
+ document.querySelector('[data-type="3d"]').innerHTML = t.tour3d;
+ document.querySelector('.start-btn').textContent = t.start;
  }
 
  function startTour() {
