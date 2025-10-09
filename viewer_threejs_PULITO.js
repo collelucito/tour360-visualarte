@@ -28,6 +28,13 @@ let phi = 0, theta = 0;
 // Texture Cache
 let textureCache = {};
 
+// Fix media paths function
+function fixMediaPath(path) {
+	if (!path) return path;
+	// Convert ../media/ to media/ for GitHub Pages
+	return path.replace(/^\.\.\/media\//, 'media/');
+}
+
 // ==================== CROSSFADE SHADER ====================
 const crossfadeVertexShader = `
  varying vec2 vUv;
@@ -696,7 +703,7 @@ function openChiediModal(hotspot) {
  
  // VIDEO
  if (c.type === 'video' || c.video) {
- const videoSrc = c.src || c.video;
+ const videoSrc = fixMediaPath(c.src || c.video);
  html += `<h3>📹 Video</h3>
  <video controls style="width:100%; max-height:500px; border-radius:10px; margin-bottom:25px;">
  <source src="${videoSrc}" type="video/mp4">
@@ -705,10 +712,10 @@ function openChiediModal(hotspot) {
  if (c.title) html += `<h4>${c.title}</h4>`;
  if (c.description) html += `<p>${c.description}</p>`;
  }
- 
+
  // AUDIO
  if (c.type === 'audio' || c.audio) {
- const audioSrc = c.src || c.audio;
+ const audioSrc = fixMediaPath(c.src || c.audio);
  html += `<h3 style="margin-top:25px;">🎵 Audio</h3>`;
  if (c.title) html += `<h4>${c.title}</h4>`;
  if (c.description) html += `<p style="margin-bottom:15px;">${c.description}</p>`;
@@ -717,13 +724,14 @@ function openChiediModal(hotspot) {
  Il tuo browser non supporta audio HTML5.
  </audio>`;
  }
- 
+
  // GALLERY
  if (c.gallery && c.gallery.length > 0) {
  html += '<h3 style="margin-top:25px;">🖼️ Galleria</h3>';
  html += '<div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:15px; margin-top:15px;">';
  c.gallery.forEach(img => {
- html += `<img src="${img}" style="width:100%; height:200px; object-fit:cover; border-radius:10px; cursor:pointer;" onclick="window.open('${img}', '_blank')">`;
+ const imgSrc = fixMediaPath(img);
+ html += `<img src="${imgSrc}" style="width:100%; height:200px; object-fit:cover; border-radius:10px; cursor:pointer;" onclick="window.open('${imgSrc}', '_blank')">`;
  });
  html += '</div>';
  }
