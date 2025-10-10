@@ -276,8 +276,8 @@ function update() {
 // ==================== TEXTURE LOADING ====================
 function preloadAllImages() {
  console.log('📥 Precaricamento immagini...');
- if (tourData.punti) {
- tourData.punti.forEach(punto => {
+ const data = tourData || window.tourData; if (data && data.punti) {
+ data.punti.forEach(punto => {
  const img = new Image();
  img.src = punto.foto;
  console.log('✅ Precaricata:', punto.foto);
@@ -323,10 +323,10 @@ function applicaTexture(texture, callback) {
 
 // ==================== LOAD PUNTO ====================
 function loadPunto(index) {
- if (!tourData || index < 0 || index >= tourData.punti.length) return;
+ const data = tourData || window.tourData; if (!data || index < 0 || index >= data.punti.length) return;
  
  currentIndex = index;
- const punto = tourData.punti[index];
+ const punto = data.punti[index];
  
  // Update UI
  document.getElementById('punto-title').textContent = punto.nome;
@@ -340,7 +340,7 @@ function loadPunto(index) {
  document.getElementById('loading').classList.add('hidden');
  
  // Get hotspots for this foto
- const fotoHotspots = tourData.hotspots[punto.foto_numero] || [];
+ const fotoHotspots = punto.hotspots || [];
  addHotspots(fotoHotspots, punto.foto_numero);
  });
  
@@ -375,7 +375,7 @@ function addHotspots(hotspots, currentFoto) {
  hotspotGroup.userData.hotspot = {
  ...h,
  clickHandler: function() {
- const targetIndex = tourData.punti.findIndex(p => p.foto_numero === h.targetFoto);
+ const targetIndex = (tourData || window.tourData).punti.findIndex(p => p.foto_numero === h.targetFoto);
  if (targetIndex >= 0) {
  console.log(`🔄 Navigazione verso foto ${h.targetFoto}`);
  loadPunto(targetIndex);
@@ -527,9 +527,10 @@ function generateFloorplan() {
  const canvas = document.getElementById('floorplan-canvas');
  canvas.innerHTML = '';
  
- if (!tourData || !tourData.punti) return;
+ const data = tourData || window.tourData;
+ if (!data || !data.punti) return;
  
- const punti = tourData.punti;
+ const punti = data.punti;
  const width = 270;
  const height = 155;
  const margin = 20;

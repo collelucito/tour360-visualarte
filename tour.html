@@ -435,9 +435,21 @@
 
  // Load the viewer script
  const script = document.createElement('script');
- script.src = 'viewer_threejs_PULITO.js?v=20251008h';
+ script.src = 'viewer_threejs_PULITO.js?v=20251010e';
  script.onload = function() {
  console.log('🔵 Viewer script loaded successfully');
+ // Auto-inizializzazione del tour
+ setTimeout(function() {
+ console.log('🚀 Inizializzazione automatica tour...');
+ // Assicurati che tourData sia accessibile globalmente
+ if (typeof tourData === 'undefined') {
+ tourData = window.tourData;
+ }
+ initThreeJS();
+ preloadAllImages();
+ loadPunto(0);
+ generateFloorplan();
+ }, 100);
  };
  script.onerror = function() {
  console.error('❌ Errore caricamento viewer script');
