@@ -445,6 +445,22 @@
  if (typeof tourData === 'undefined') {
  tourData = window.tourData;
  }
+
+ // Aggiorna titolo mappa con nome percorso
+ const nomePercorso = window.tourData.nome || 'Mappa';
+ document.querySelector('#floorplan h3').textContent = `📍 ${nomePercorso}`;
+
+ // Aggiungi sfondo prima foto alla card mappa
+ if (window.tourData.punti && window.tourData.punti.length > 0) {
+ const primaFoto = window.tourData.punti[0].foto;
+ const floorplanDiv = document.getElementById('floorplan');
+ floorplanDiv.style.backgroundImage = `url('${primaFoto}')`;
+ floorplanDiv.style.backgroundSize = 'cover';
+ floorplanDiv.style.backgroundPosition = 'center';
+ floorplanDiv.style.backgroundColor = 'rgba(0,0,0,0.8)';
+ floorplanDiv.style.backgroundBlendMode = 'darken';
+ }
+
  initThreeJS();
  preloadAllImages();
  loadPunto(0);
