@@ -441,6 +441,10 @@
  // Auto-inizializzazione del tour
  setTimeout(function() {
  console.log('🚀 Inizializzazione automatica tour...');
+ // Assicurati che tourData sia accessibile globalmente
+ if (typeof tourData === 'undefined') {
+ tourData = window.tourData;
+ }
  initThreeJS();
  preloadAllImages();
  loadPunto(0);
