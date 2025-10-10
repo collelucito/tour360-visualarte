@@ -275,12 +275,17 @@ function update() {
 
 // ==================== TEXTURE LOADING ====================
 function preloadAllImages() {
- console.log('📥 Precaricamento immagini...');
- const data = tourData || window.tourData; if (data && data.punti) {
- data.punti.forEach(punto => {
+ console.log('📥 Precaricamento immagini (background)...');
+ const data = tourData || window.tourData;
+ if (data && data.punti) {
+ // Precarica solo a partire dalla seconda immagine (la prima è già caricata)
+ data.punti.slice(1).forEach((punto, index) => {
+ // Carica in background con delay progressivo per non bloccare mobile
+ setTimeout(() => {
  const img = new Image();
  img.src = punto.foto;
- console.log('✅ Precaricata:', punto.foto);
+ console.log(`✅ Precaricata in background: ${punto.foto}`);
+ }, index * 500); // 500ms tra un'immagine e l'altra
  });
  }
 }
