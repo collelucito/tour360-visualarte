@@ -438,6 +438,14 @@
  script.src = 'viewer_threejs_PULITO.js?v=20251010a';
  script.onload = function() {
  console.log('🔵 Viewer script loaded successfully');
+ // Auto-inizializzazione del tour
+ setTimeout(function() {
+ console.log('🚀 Inizializzazione automatica tour...');
+ initThreeJS();
+ preloadAllImages();
+ loadPunto(0);
+ generateFloorplan();
+ }, 100);
  };
  script.onerror = function() {
  console.error('❌ Errore caricamento viewer script');
