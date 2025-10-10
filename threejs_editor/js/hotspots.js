@@ -41,12 +41,12 @@ export class HotspotManager {
  size = 25; // 🔍 Aumentato da 15 a 25
  }
  
- // Create sphere geometry
+ // Create sphere geometry (invisibile - solo per click detection)
  const geometry = new THREE.SphereGeometry(size, 16, 16);
- const material = new THREE.MeshBasicMaterial({ 
+ const material = new THREE.MeshBasicMaterial({
  color: color,
  transparent: true,
- opacity: 0.85
+ opacity: 0 // Invisibile per tutti gli hotspot
  });
  
  const mesh = new THREE.Mesh(geometry, material);

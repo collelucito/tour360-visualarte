@@ -25,15 +25,12 @@ let lon = 0, onPointerDownLon = 0;
 let lat = 0, onPointerDownLat = 0;
 let phi = 0, theta = 0;
 
+// Auto-rotation
+let autoRotateSpeed = 0.1; // Velocità di rotazione automatica (gradi per frame)
+let lastInteractionTime = Date.now();
+
 // Texture Cache
 let textureCache = {};
-
-// Fix media paths function
-function fixMediaPath(path) {
-	if (!path) return path;
-	// Convert ../media/ to media/ for GitHub Pages
-	return path.replace(/^\.\.\/media\//, 'media/');
-}
 
 // ==================== CROSSFADE SHADER ====================
 const crossfadeVertexShader = `
@@ -58,131 +55,12 @@ const crossfadeFragmentShader = `
 `;
 
 // ==================== INIT ====================
-// ==================== GITHUB PHOTO LOADER ====================
-function getPhotoUrl(filename) {
- // Extract photo number from filename (e.g., "IMG_092.jpg" -> 92)
- const match = filename.match(/IMG_(\d+)\.jpg/);
- if (!match) return filename; // If not a standard photo, return as is
-
- const photoNum = parseInt(match[1]);
-
- // Determine which repository based on photo number
- // Repo 1: IMG_001 - IMG_040
- // Repo 2: IMG_041 - IMG_080
- // Repo 3: IMG_081 - IMG_120
- // Repo 4: IMG_121 - IMG_160
- // Repo 5: IMG_161 - IMG_198
-
- let repoNum;
- if (photoNum >= 1 && photoNum <= 40) {
- repoNum = 1;
- } else if (photoNum >= 41 && photoNum <= 80) {
- repoNum = 2;
- } else if (photoNum >= 81 && photoNum <= 120) {
- repoNum = 3;
- } else if (photoNum >= 121 && photoNum <= 160) {
- repoNum = 4;
- } else if (photoNum >= 161 && photoNum <= 198) {
- repoNum = 5;
- } else {
- return filename; // Out of range, return as is
- }
-
- const githubUrl = `https://raw.githubusercontent.com/collelucito/tour360-photos-${repoNum}/main/${filename}`;
- console.log(`📸 Loading ${filename} from repo ${repoNum}: ${githubUrl}`);
- return githubUrl;
-}
-
-// Auto-execute when script loads
-(function() {
- console.log('🚀 Viewer script caricato');
-
- // Update loading message
- const loadingText = document.getElementById('loading-text');
- if (loadingText) {
- loadingText.textContent = 'Inizializzazione viewer...';
- }
-
- // Check if tour data was pre-loaded (for auto-load mode)
- if (window.tourData) {
- console.log('📦 Tour pre-caricato, avvio automatico...');
- if (loadingText) {
- loadingText.textContent = 'Avvio tour...';
- }
- startTour(window.tourData);
- return;
- }
-
- // Gestione caricamento JSON manuale
- const fileInput = document.getElementById('json-file-input');
- if (fileInput) {
- fileInput.addEventListener('change', handleFileSelect);
- }
-
+window.onload = function() {
+ // Gestione caricamento JSON
+ document.getElementById('json-file-input').addEventListener('change', handleFileSelect);
+ 
  console.log('✅ Viewer Three.js Ready - Supporto 4 hotspot');
-})();
-
-function startTour(data) {
- try {
- tourData = data;
- console.log('📦 Tour caricato:', tourData);
-
- const loadingText = document.getElementById('loading-text');
-
- // Nascondi selettore se esiste
- const fileSelector = document.getElementById('file-selector');
- if (fileSelector) {
- fileSelector.classList.add('hidden');
- }
-
- // Aggiorna titolo mappa con nome percorso se esiste
- const floorplanTitle = document.querySelector('#floorplan h3');
- if (floorplanTitle) {
- const nomePercorso = tourData.nome || 'Mappa';
- floorplanTitle.textContent = `📍 ${nomePercorso}`;
- }
-
- // Inizia tour
- console.log('🎬 Inizializzazione Three.js...');
- if (loadingText) loadingText.textContent = 'Inizializzazione Three.js...';
-
- initThreeJS();
-
- console.log('📥 Preload immagini...');
- if (loadingText) loadingText.textContent = 'Caricamento immagini...';
-
- preloadAllImages();
-
- console.log('📍 Caricamento primo punto...');
- if (loadingText) loadingText.textContent = 'Caricamento panorama...';
-
- loadPunto(0);
-
- // Genera floorplan se il div esiste
- const floorplanDiv = document.getElementById('floorplan');
- if (floorplanDiv) {
- generateFloorplan();
-
- // Aggiungi sfondo prima foto alla card mappa
- if (tourData.punti && tourData.punti.length > 0) {
- const primaFoto = getPhotoUrl(tourData.punti[0].foto);
- floorplanDiv.style.backgroundImage = `url('${primaFoto}')`;
- floorplanDiv.style.backgroundSize = 'cover';
- floorplanDiv.style.backgroundPosition = 'center';
- floorplanDiv.style.backgroundColor = 'rgba(0,0,0,0.8)';
- floorplanDiv.style.backgroundBlendMode = 'darken';
- }
- }
-
- console.log('✅ Tour avviato con successo');
- } catch (error) {
- console.error('❌ Errore durante avvio tour:', error);
- const loading = document.getElementById('loading');
- if (loading) {
- loading.innerHTML = '<h1 style="color:white">❌ Errore</h1><p style="color: white;">Errore inizializzazione: ' + error.message + '</p>';
- }
- }
-}
+};
 
 function handleFileSelect(event) {
  const file = event.target.files[0];
@@ -191,8 +69,33 @@ function handleFileSelect(event) {
  const reader = new FileReader();
  reader.onload = function(e) {
  try {
- const data = JSON.parse(e.target.result);
- startTour(data);
+ tourData = JSON.parse(e.target.result);
+ console.log('📦 Tour caricato:', tourData);
+
+ // Nascondi selettore
+ document.getElementById('file-selector').classList.add('hidden');
+
+ // Aggiorna titolo mappa con nome percorso
+ const nomePercorso = tourData.nome || 'Mappa';
+ document.querySelector('#floorplan h3').textContent = `📍 ${nomePercorso}`;
+
+ // Inizia tour
+ initThreeJS();
+ preloadAllImages();
+ loadPunto(0);
+ generateFloorplan();
+
+ // Aggiungi sfondo prima foto alla card mappa
+ if (tourData.punti && tourData.punti.length > 0) {
+ const primaFoto = tourData.punti[0].foto;
+ const floorplanDiv = document.getElementById('floorplan');
+ floorplanDiv.style.backgroundImage = `url('${primaFoto}')`;
+ floorplanDiv.style.backgroundSize = 'cover';
+ floorplanDiv.style.backgroundPosition = 'center';
+ floorplanDiv.style.backgroundColor = 'rgba(0,0,0,0.8)';
+ floorplanDiv.style.backgroundBlendMode = 'darken';
+ }
+
  } catch (error) {
  alert('❌ Errore nel file JSON: ' + error.message);
  }
@@ -254,6 +157,7 @@ function initThreeJS() {
 // ==================== CAMERA CONTROLS ====================
 function onPointerDown(event) {
  isUserInteracting = true;
+ lastInteractionTime = Date.now(); // Reset timer per auto-rotazione
  onPointerDownMouseX = event.clientX;
  onPointerDownMouseY = event.clientY;
  onPointerDownLon = lon;
@@ -262,10 +166,11 @@ function onPointerDown(event) {
 
 function onPointerMove(event) {
  if (isUserInteracting) {
+ lastInteractionTime = Date.now(); // Reset timer per auto-rotazione
  lon = (onPointerDownMouseX - event.clientX) * 0.1 + onPointerDownLon;
  lat = (event.clientY - onPointerDownMouseY) * 0.1 + onPointerDownLat;
  }
- 
+
  mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
  mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
 }
@@ -314,6 +219,7 @@ function handleClick(event) {
 
 function onWheel(event) {
  event.preventDefault();
+ lastInteractionTime = Date.now(); // Reset timer per auto-rotazione
  camera.fov += event.deltaY * 0.05;
  camera.fov = Math.max(30, Math.min(120, camera.fov));
  camera.updateProjectionMatrix();
@@ -348,16 +254,22 @@ function animate() {
 }
 
 function update() {
+ // Auto-rotazione se l'utente non interagisce da 2 secondi
+ const timeSinceLastInteraction = Date.now() - lastInteractionTime;
+ if (!isUserInteracting && timeSinceLastInteraction > 2000) {
+ lon += autoRotateSpeed;
+ }
+
  lat = Math.max(-85, Math.min(85, lat));
  phi = THREE.MathUtils.degToRad(90 - lat);
  theta = THREE.MathUtils.degToRad(lon);
- 
+
  camera.target = new THREE.Vector3(
  500 * Math.sin(phi) * Math.cos(theta),
  500 * Math.cos(phi),
  500 * Math.sin(phi) * Math.sin(theta)
  );
- 
+
  camera.lookAt(camera.target);
 }
 
@@ -367,41 +279,29 @@ function preloadAllImages() {
  if (tourData.punti) {
  tourData.punti.forEach(punto => {
  const img = new Image();
- img.src = getPhotoUrl(punto.foto);
+ img.src = punto.foto;
  console.log('✅ Precaricata:', punto.foto);
  });
  }
 }
 
 function loadTextureCrossfade(filename, callback) {
- const photoUrl = getPhotoUrl(filename);
-
- if (textureCache[photoUrl]) {
- applicaTexture(textureCache[photoUrl], callback);
+ if (textureCache[filename]) {
+ applicaTexture(textureCache[filename], callback);
  return;
  }
-
+ 
  const textureLoader = new THREE.TextureLoader();
-
+ 
  textureLoader.load(
- photoUrl,
+ filename,
  function(texture) {
- textureCache[photoUrl] = texture;
+ textureCache[filename] = texture;
  applicaTexture(texture, callback);
  },
  undefined,
  function(error) {
- console.error('❌ Errore caricamento texture:', error);
- console.error('📸 URL fallito:', photoUrl);
-
- // Show error to user
- const loadingEl = document.getElementById('loading');
- const loadingText = document.getElementById('loading-text');
-
- if (loadingEl && loadingText) {
- loadingText.innerHTML = '❌ Errore caricamento immagine<br><small style="font-size: 12px;">Possibile problema: immagine troppo grande per Safari mobile.<br>Prova a ridurre la risoluzione delle foto panoramiche.</small>';
- loadingEl.style.display = 'flex'; // Make sure it's visible
- }
+ console.error('❌ Errore caricamento:', error);
  }
  );
 }
@@ -438,9 +338,9 @@ function loadPunto(index) {
  // Load texture
  loadTextureCrossfade(punto.foto, function() {
  document.getElementById('loading').classList.add('hidden');
-
- // Get hotspots for this foto (support both structures)
- const fotoHotspots = punto.hotspots || (tourData.hotspots ? tourData.hotspots[punto.foto_numero] : []) || [];
+ 
+ // Get hotspots for this foto
+ const fotoHotspots = tourData.hotspots[punto.foto_numero] || [];
  addHotspots(fotoHotspots, punto.foto_numero);
  });
  
@@ -532,22 +432,22 @@ function createHotspotMesh(hotspot, position) {
  case 'incrocio':
  color = 0x4CAF50;
  size = 30;
- text = 'GO';
+ text = '⬆️';
  break;
  case 'chiedi':
  color = 0xFF9800;
  size = 28;
- text = 'MP4';
+ text = '🎬';
  break;
  case 'more':
  color = 0x2196F3;
  size = 28;
- text = 'INFO';
+ text = 'ℹ️';
  break;
  case 'tred':
  color = 0x9C27B0;
  size = 28;
- text = '3D';
+ text = '📦';
  break;
  default:
  color = 0xFFFFFF;
@@ -555,12 +455,12 @@ function createHotspotMesh(hotspot, position) {
  text = '?';
  }
 
- // Sfera base
+ // Sfera base (invisibile per tutti gli hotspot - solo icona visibile)
  const geometry = new THREE.SphereGeometry(size, 16, 16);
  const material = new THREE.MeshStandardMaterial({
  color: color,
  transparent: true,
- opacity: 0.85,
+ opacity: 0, // Invisibile per tutti gli hotspot
  emissive: color,
  emissiveIntensity: 0.6,
  roughness: 0.3,
@@ -703,7 +603,7 @@ function openChiediModal(hotspot) {
  
  // VIDEO
  if (c.type === 'video' || c.video) {
- const videoSrc = fixMediaPath(c.src || c.video);
+ const videoSrc = c.src || c.video;
  html += `<h3>📹 Video</h3>
  <video controls style="width:100%; max-height:500px; border-radius:10px; margin-bottom:25px;">
  <source src="${videoSrc}" type="video/mp4">
@@ -712,10 +612,10 @@ function openChiediModal(hotspot) {
  if (c.title) html += `<h4>${c.title}</h4>`;
  if (c.description) html += `<p>${c.description}</p>`;
  }
-
+ 
  // AUDIO
  if (c.type === 'audio' || c.audio) {
- const audioSrc = fixMediaPath(c.src || c.audio);
+ const audioSrc = c.src || c.audio;
  html += `<h3 style="margin-top:25px;">🎵 Audio</h3>`;
  if (c.title) html += `<h4>${c.title}</h4>`;
  if (c.description) html += `<p style="margin-bottom:15px;">${c.description}</p>`;
@@ -724,14 +624,13 @@ function openChiediModal(hotspot) {
  Il tuo browser non supporta audio HTML5.
  </audio>`;
  }
-
+ 
  // GALLERY
  if (c.gallery && c.gallery.length > 0) {
  html += '<h3 style="margin-top:25px;">🖼️ Galleria</h3>';
  html += '<div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:15px; margin-top:15px;">';
  c.gallery.forEach(img => {
- const imgSrc = fixMediaPath(img);
- html += `<img src="${imgSrc}" style="width:100%; height:200px; object-fit:cover; border-radius:10px; cursor:pointer;" onclick="window.open('${imgSrc}', '_blank')">`;
+ html += `<img src="${img}" style="width:100%; height:200px; object-fit:cover; border-radius:10px; cursor:pointer;" onclick="window.open('${img}', '_blank')">`;
  });
  html += '</div>';
  }
