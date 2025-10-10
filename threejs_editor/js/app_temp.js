@@ -44,9 +44,13 @@ export class PreviewMode {
  
  this.raycaster = new THREE.Raycaster();
  this.mouse = new THREE.Vector2();
- 
+
  this.textureLoader = new THREE.TextureLoader();
- 
+
+ // Auto-rotation
+ this.autoRotateSpeed = 0.1; // Velocità di rotazione automatica (gradi per frame)
+ this.lastInteractionTime = Date.now();
+
  console.log('✅ Preview mode ready');
  }
  
@@ -268,22 +272,22 @@ export class PreviewMode {
  case 'incrocio':
  color = 0x4CAF50;
  size = 30;
- text = 'GO';
+ text = '⬆️';
  break;
  case 'chiedi':
  color = 0xFF9800;
  size = 28;
- text = 'MP4';
+ text = '🎬';
  break;
  case 'more':
  color = 0x2196F3;
  size = 28;
- text = 'INFO';
+ text = 'ℹ️';
  break;
  case 'tred':
  color = 0x9C27B0;
  size = 28;
- text = '3D';
+ text = '📦';
  break;
  default:
  color = 0xFFFFFF;
@@ -292,19 +296,19 @@ export class PreviewMode {
  }
  
  const geometry = new THREE.SphereGeometry(size, 16, 16);
- const material = new THREE.MeshStandardMaterial({ 
+ const material = new THREE.MeshStandardMaterial({
  color: color,
  transparent: true,
- opacity: 0.85,
+ opacity: 0, // Invisibile per tutti gli hotspot
  emissive: color,
  emissiveIntensity: 0.6,
  roughness: 0.3,
  metalness: 0.1
  });
- 
+
  const mesh = new THREE.Mesh(geometry, material);
  mesh.position.copy(position);
- mesh.userData = { 
+ mesh.userData = {
  tipo: tipo,
  targetIndex: targetIndex,
  content: hotspotData?.content || null
@@ -430,14 +434,16 @@ export class PreviewMode {
  
  onPointerDown(event) {
  this.isUserInteracting = true;
+ this.lastInteractionTime = Date.now(); // Reset timer per auto-rotazione
  this.onPointerDownMouseX = event.clientX;
  this.onPointerDownMouseY = event.clientY;
  this.onPointerDownLon = this.lon;
  this.onPointerDownLat = this.lat;
  }
- 
+
  onPointerMove(event) {
  if (this.isUserInteracting) {
+ this.lastInteractionTime = Date.now(); // Reset timer per auto-rotazione
  this.lon = (this.onPointerDownMouseX - event.clientX) * 0.1 + this.onPointerDownLon;
  this.lat = (event.clientY - this.onPointerDownMouseY) * 0.1 + this.onPointerDownLat;
  }
@@ -515,6 +521,7 @@ export class PreviewMode {
  
  onWheel(event) {
  event.preventDefault();
+ this.lastInteractionTime = Date.now(); // Reset timer per auto-rotazione
  this.camera.fov += event.deltaY * 0.05;
  this.camera.fov = Math.max(30, Math.min(120, this.camera.fov));
  this.camera.updateProjectionMatrix();
@@ -527,16 +534,22 @@ export class PreviewMode {
  }
  
  update() {
+ // Auto-rotazione se l'utente non interagisce da 2 secondi
+ const timeSinceLastInteraction = Date.now() - this.lastInteractionTime;
+ if (!this.isUserInteracting && timeSinceLastInteraction > 2000) {
+ this.lon += this.autoRotateSpeed;
+ }
+
  this.lat = Math.max(-85, Math.min(85, this.lat));
  this.phi = THREE.MathUtils.degToRad(90 - this.lat);
  this.theta = THREE.MathUtils.degToRad(this.lon);
- 
+
  const target = new THREE.Vector3(
  500 * Math.sin(this.phi) * Math.cos(this.theta),
  500 * Math.cos(this.phi),
  500 * Math.sin(this.phi) * Math.sin(this.theta)
  );
- 
+
  this.camera.lookAt(target);
  }
  
