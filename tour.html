@@ -430,9 +430,6 @@
  loadingText.textContent = 'Caricamento viewer...';
  }
 
- // Store tour data globally
- window.tourData = data;
-
  // Load the viewer script
  const script = document.createElement('script');
  script.src = 'viewer_threejs_PULITO.js?v=20251010a';
@@ -441,10 +438,8 @@
  // Auto-inizializzazione del tour
  setTimeout(function() {
  console.log('🚀 Inizializzazione automatica tour...');
- // Assicurati che tourData sia accessibile globalmente
- if (typeof tourData === 'undefined') {
- tourData = window.tourData;
- }
+ // Assegna i dati del tour alla variabile globale tourData
+ tourData = data;
  initThreeJS();
  preloadAllImages();
  loadPunto(0);
