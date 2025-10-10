@@ -42,7 +42,7 @@
             "z": -257.90969502943943
           },
           "content": {
-            "video": "../media/videos/Geometric_Sculpture_Of_Rodrigo_Santa_Cruz_Anchissi_G55235.mp4",
+            "video": "media/videos/Geometric_Sculpture_Of_Rodrigo_Santa_Cruz_Anchissi_G55235.mp4",
             "audio": "",
             "gallery": []
           }
@@ -303,7 +303,7 @@
           },
           "content": {
             "video": "",
-            "audio": "../media/audio/museum-gymnopedie-ambient-piano.mp3",
+            "audio": "media/audio/museum-gymnopedie-ambient-piano.mp3",
             "gallery": []
           }
         }
@@ -440,7 +440,7 @@
             "video": "",
             "audio": "",
             "gallery": [
-              "../media/images/wilhelm-gunkel-LpQs_3t4Dck-unsplash.jpg"
+              "media/images/wilhelm-gunkel-LpQs_3t4Dck-unsplash.jpg"
             ]
           }
         }
@@ -563,7 +563,7 @@
             "video": "",
             "audio": "",
             "gallery": [
-              "../media/images/pexels-martinpechy-2844464.jpg"
+              "media/images/pexels-martinpechy-2844464.jpg"
             ]
           }
         }
